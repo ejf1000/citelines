@@ -1,0 +1,36 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Inputs</title>
+<link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  .field { display:flex; flex-direction:column; gap:6px; }
+  .field label { font-family: var(--font-body); font-weight:600; font-size:13px; color: var(--fg-1); }
+  .input { font-family: var(--font-body); font-size:15px; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--border-strong); background: #fff; color: var(--fg-1); outline: none; transition: box-shadow 200ms, border-color 200ms; }
+  .input::placeholder { color: var(--fg-4); }
+  .input:focus { border-color: var(--ink-500); box-shadow: 0 0 0 3px rgba(47,94,147,0.25); }
+  .help { font-family: var(--font-body); font-size:12px; color: var(--fg-3); }
+  .err { color: var(--accent-coral); }
+</style>
+<div class="card">
+  <div class="eyebrow" style="margin-bottom:14px">Inputs</div>
+  <div class="grid-2" style="gap:18px">
+    <div class="field">
+      <label>Search citation or case</label>
+      <input class="input" placeholder="e.g. 347 U.S. 483"/>
+      <div class="help">Enter a reporter cite, case name, or phrase.</div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <input class="input" value="amelia@firm.com" style="border-color: var(--ink-500); box-shadow: 0 0 0 3px rgba(47,94,147,0.25);"/>
+      <div class="help">Focus ring · ink-500 @ 25%</div>
+    </div>
+    <div class="field">
+      <label>Folder name</label>
+      <input class="input" value="Q3 motion to dismiss" style="border-color: var(--accent-coral);"/>
+      <div class="help err">That folder name is already taken.</div>
+    </div>
+    <div class="field">
+      <label>Disabled</label>
+      <input class="input" value="—" disabled style="background: var(--paper-100); color: var(--fg-4);"/>
+      <div class="help">Read-only fields use paper-100 fill.</div>
+    </div>
+  </div>
+</div></body></html>

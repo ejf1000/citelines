@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Assessments — Citelines</title>
+  <link rel="icon" type="image/svg+xml" href="./design-system/assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="./site.css"/>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__row">
+    <a href="./index.html" class="nav__brand">
+      <img src="./design-system/assets/logo-wordmark.svg" alt="Citelines"/>
+      <span class="nav__brand-sub">Learn the Bluebook</span>
+    </a>
+    <nav class="nav__links">
+      <a href="./index.html">Home</a>
+      <a href="./learn.html">Learn</a>
+      <a href="./practice.html">Practice</a>
+      <a href="./assessment.html" class="is-active">Assessments</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: var(--space-12) 0 var(--space-6); border-bottom: 1px solid var(--border-hairline); background: linear-gradient(180deg, var(--paper-50), var(--paper-100));">
+  <div class="container">
+    <div class="hero__eyebrow">Assessments · 20-question tests</div>
+    <h1 style="max-width: 22ch;">Mixed assessments across every Citeline rule.</h1>
+    <p class="hero__lede" style="margin-top: var(--space-4); max-width: 64ch;">Three practice tests of twenty questions each. Submit the whole test, then walk through every question with feedback and an explanation of the rule.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div id="picker">
+      <div class="eyebrow">Pick a test</div>
+      <h2 style="margin-bottom: var(--space-3);">Three full assessments.</h2>
+      <p class="muted" style="max-width: 60ch; margin-bottom: var(--space-6);">Each test mixes B1, B5, B10, Table 1 (North Carolina), and Table 6 questions. You can retake any of them.</p>
+
+      <div class="three-up">
+        <button class="card card--link" onclick="startTest(0)" style="cursor:pointer; text-align:left; font:inherit; color:inherit; border:1px solid var(--border-hairline);">
+          <span class="card__num">Test 1</span>
+          <div class="card__title">Foundations</div>
+          <p class="card__body">A balanced sampler across all eleven Citeline topics. Good first attempt after the lessons.</p>
+          <span class="card__cta">Start test 1
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+        <button class="card card--link" onclick="startTest(1)" style="cursor:pointer; text-align:left; font:inherit; color:inherit; border:1px solid var(--border-hairline);">
+          <span class="card__num">Test 2</span>
+          <div class="card__title">Application</div>
+          <p class="card__body">Harder fact patterns. Lean on the rationale behind each rule, not just the rule text.</p>
+          <span class="card__cta">Start test 2
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+        <button class="card card--link" onclick="startTest(2)" style="cursor:pointer; text-align:left; font:inherit; color:inherit; border:1px solid var(--border-hairline);">
+          <span class="card__num">Test 3</span>
+          <div class="card__title">Polish</div>
+          <p class="card__body">Edge cases and Table 6 fine points. If you can ace this one, you'll fly through any 1L citation exercise.</p>
+          <span class="card__cta">Start test 3
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 5l7 7-7 7"/></svg>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div id="test-pane" class="hidden">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; gap: var(--space-4); flex-wrap:wrap; margin-bottom: var(--space-5);">
+        <div>
+          <div class="eyebrow" id="test-eyebrow"></div>
+          <h2 id="test-title" style="margin-bottom: var(--space-2);"></h2>
+          <p class="muted" id="test-sub" style="margin: 0;"></p>
+        </div>
+        <div style="display:flex; gap: var(--space-3); align-items:center;">
+          <button class="btn btn--ghost btn--sm" onclick="backToPicker()">← Back to tests</button>
+        </div>
+      </div>
+      <div class="progress"><div class="progress__fill" id="progress-fill" style="width:0%"></div></div>
+      <div id="test-questions"></div>
+      <div id="test-submit" style="margin: var(--space-8) 0 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3);">
+        <span class="muted small" id="submit-meta"></span>
+        <button class="btn btn--primary btn--lg" onclick="submitTest()">Submit test</button>
+      </div>
+    </div>
+
+    <div id="results-pane" class="hidden">
+      <div class="score-panel">
+        <div>
+          <div class="hero__eyebrow" style="color: var(--ink-200);">Your result</div>
+          <div class="score-panel__num"><span id="result-correct">0</span><span class="denom"> / 20</span></div>
+        </div>
+        <div class="score-panel__meta">
+          <span class="big" id="result-grade">—</span>
+          <span id="result-pct" style="font-family: var(--font-mono);">—</span>
+          <span id="result-name" class="small" style="margin-top: var(--space-3); color: var(--ink-200);"></span>
+        </div>
+        <div style="display:flex; flex-direction:column; gap: var(--space-2);">
+          <button class="btn btn--secondary btn--sm" onclick="retakeTest()">Retake this test</button>
+          <button class="btn btn--ghost btn--sm" onclick="backToPicker()" style="color: var(--ink-200);">Pick another test</button>
+        </div>
+      </div>
+      <div id="results-list"></div>
+      <div style="display:flex; gap: var(--space-3); justify-content:center; margin-top: var(--space-10); flex-wrap:wrap;">
+        <button class="btn btn--primary" onclick="retakeTest()">Retake this test</button>
+        <button class="btn btn--secondary" onclick="backToPicker()">Choose another test</button>
+        <a href="./learn.html" class="btn btn--ghost">Review the lessons</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <img src="./design-system/assets/logo-wordmark-light.svg" alt="Citelines"/>
+        <p>A study companion to the Bluebook's blue pages, built for 1Ls.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--paper-50); margin-bottom: var(--space-3); font-size: var(--fs-14);">Sections</h4>
+        <ul style="list-style:none; padding:0; margin:0; font-size: var(--fs-14); display:flex; flex-direction:column; gap: 6px;">
+          <li><a href="./learn.html" style="color: var(--ink-200);">Learn</a></li>
+          <li><a href="./practice.html" style="color: var(--ink-200);">Practice</a></li>
+          <li><a href="./assessment.html" style="color: var(--ink-200);">Assessments</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Citelines &middot; Carolina Law study companion</span>
+      <span>Always check the current edition of the Bluebook for authoritative rules.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ============================================================
+  // Test data — three 20-question tests
+  // Each question: { rule, q, choices [{v,t}], answer, explain }
+  // ============================================================
+  const TESTS = [
+    {
+      name: 'Test 1 · Foundations',
+      sub: 'A balanced sampler across every Citeline rule.',
+      questions: [
+        {
+          rule:'B1.1',
+          q:'A citation that stands on its own immediately after the proposition it supports, beginning with a capital letter and ending with a period, is a:',
+          choices:[{v:'a',t:'citation clause'},{v:'b',t:'citation sentence'},{v:'c',t:'string citation'},{v:'d',t:'short form'}],
+          answer:'b',
+          explain:'A <strong>citation sentence</strong> stands on its own with a capital letter and a period, supporting the whole previous sentence.'
+        },
+        {
+          rule:'B1.2',
+          q:'Which signal is used when the cited authority directly states the proposition?',
+          choices:[{v:'a',t:'See'},{v:'b',t:'See also'},{v:'c',t:'No signal'},{v:'d',t:'Cf.'}],
+          answer:'c',
+          explain:'When a source <strong>directly states</strong> your proposition (or you have just quoted it), use <strong>no signal</strong>.'
+        },
+        {
+          rule:'B1.2',
+          q:'Which signal introduces authority that supports the proposition <strong>by analogy</strong>?',
+          choices:[{v:'a',t:'See'},{v:'b',t:'Cf.'},{v:'c',t:'See also'},{v:'d',t:'But see'}],
+          answer:'b',
+          explain:'<strong>Cf.</strong> means "compare" — the source supports your point by analogy. Use a parenthetical to explain the analogy.'
+        },
+        {
+          rule:'B1.3',
+          q:'Which is the correct opening of an explanatory parenthetical?',
+          choices:[{v:'a',t:'(The court held...)'},{v:'b',t:'(Held that...)'},{v:'c',t:'(holding that...)'},{v:'d',t:'(Holds that...)'}],
+          answer:'c',
+          explain:'Explanatory parentheticals begin with a <strong>present participle</strong> (-ing verb), lowercase, no internal period.'
+        },
+        {
+          rule:'B5.3',
+          q:'If you add italics to a word in a quotation for emphasis, the parenthetical you attach is:',
+          choices:[{v:'a',t:'(emphasis in original)'},{v:'b',t:'(emphasis added)'},{v:'c',t:'(alteration in original)'},{v:'d',t:'No parenthetical needed.'}],
+          answer:'b',
+          explain:'Use <strong>(emphasis added)</strong> when the italics are yours, not the original court\'s.'
+        },
+        {
+          rule:'B5.3',
+          q:'You replace the pronoun "he" with "[the defendant]" inside a quotation. What signals the change?',
+          choices:[{v:'a',t:'The square brackets themselves.'},{v:'b',t:'A "(quotation modified)" parenthetical at the end.'},{v:'c',t:'You must use ellipses instead of brackets.'},{v:'d',t:'Nothing; pronouns can be silently changed.'}],
+          answer:'a',
+          explain:'<strong>Square brackets</strong> are the marker. No extra parenthetical is needed for small clarifying substitutions.'
+        },
+        {
+          rule:'B10.1',
+          q:'In order, the parts of a full case citation are:',
+          choices:[
+            {v:'a',t:'Case name, reporter, court & year, pinpoint.'},
+            {v:'b',t:'Case name, reporter & pinpoint, court & year.'},
+            {v:'c',t:'Reporter & pinpoint, case name, court & year.'},
+            {v:'d',t:'Case name, court & year, reporter & pinpoint.'}
+          ],
+          answer:'b',
+          explain:'Order: <strong>Case name, comma, volume reporter first-page pinpoint, parenthetical with court & year.</strong>'
+        },
+        {
+          rule:'B10.1.1',
+          q:'Which case-name form is correct?',
+          choices:[
+            {v:'a',t:'<em>Brown vs. Bd. of Educ.</em>'},
+            {v:'b',t:'<em>Brown v. Board of Education</em>'},
+            {v:'c',t:'<em>BROWN v. BOARD OF EDUCATION</em>'}
+          ],
+          answer:'b',
+          explain:'Always "v." not "vs." Use sentence-case party names, italicized.'
+        },
+        {
+          rule:'B10.1.1',
+          q:'A plaintiff is listed as "Susan B. Anthony et al." How does the name appear in the case-name field?',
+          choices:[
+            {v:'a',t:'Anthony et al.'},
+            {v:'b',t:'Susan B. Anthony'},
+            {v:'c',t:'Anthony'}
+          ],
+          answer:'c',
+          explain:'Use only the <strong>first party on each side</strong>, and for individuals only the <strong>last name</strong>. Drop "et al."'
+        },
+        {
+          rule:'B10.1.2',
+          q:'Which spacing is correct?',
+          choices:[
+            {v:'a',t:'F.Supp.3d'},
+            {v:'b',t:'F. Supp. 3d'},
+            {v:'c',t:'F Supp 3d'}
+          ],
+          answer:'b',
+          explain:'Insert a space between a single letter and a longer abbreviation: <strong>F. Supp. 3d</strong>.'
+        },
+        {
+          rule:'B10.1.2',
+          q:'You cite material on page 495 of a case that begins on page 483 of volume 347 U.S. The citation reads:',
+          choices:[
+            {v:'a',t:'347 U.S. 483 (495)'},
+            {v:'b',t:'347 U.S. 495'},
+            {v:'c',t:'347 U.S. 483, 495'}
+          ],
+          answer:'c',
+          explain:'First page, comma, pinpoint: <strong>347 U.S. 483, 495</strong>.'
+        },
+        {
+          rule:'B10.1.3',
+          q:'A 1982 U.S. Supreme Court case cited to the U.S. Reports needs what parenthetical?',
+          choices:[
+            {v:'a',t:'(U.S. 1982)'},
+            {v:'b',t:'(1982)'},
+            {v:'c',t:'(S. Ct. 1982)'}
+          ],
+          answer:'b',
+          explain:'The U.S. Reports reporter identifies the Court, so the parenthetical is just <strong>(1982)</strong>.'
+        },
+        {
+          rule:'B10.1.3',
+          q:'A Fourth Circuit decision in F.3d has what parenthetical?',
+          choices:[
+            {v:'a',t:'(2018)'},
+            {v:'b',t:'(C.A.4 2018)'},
+            {v:'c',t:'(4th Cir. 2018)'}
+          ],
+          answer:'c',
+          explain:'F.3d covers all circuits, so identify the deciding circuit: <strong>(4th Cir. 2018)</strong>.'
+        },
+        {
+          rule:'B10.2',
+          q:'Correct short form for Harlow v. Fitzgerald, 457 U.S. 800 (1982), citing page 820?',
+          choices:[
+            {v:'a',t:'<em>Harlow</em>, 457 U.S. 820.'},
+            {v:'b',t:'<em>Harlow</em>, 457 U.S. at 820.'},
+            {v:'c',t:'<em>Harlow</em> at 820.'}
+          ],
+          answer:'b',
+          explain:'Short form: one party name (italics), volume, reporter, <strong>"at"</strong>, pinpoint.'
+        },
+        {
+          rule:'B10.2',
+          q:'You\'ve just cited Harlow at page 818. The next citation is to page 822 of the same case. The right citation is:',
+          choices:[
+            {v:'a',t:'<em>Harlow</em>, 457 U.S. at 822.'},
+            {v:'b',t:'<em>Id.</em> at 822.'},
+            {v:'c',t:'<em>Id.</em>, 457 U.S. at 822.'}
+          ],
+          answer:'b',
+          explain:'When the immediately preceding citation is the same source, use <strong><em>Id.</em> at 822.</strong>'
+        },
+        {
+          rule:'T1·NC',
+          q:'Correct full citation for a 2012 North Carolina Supreme Court case in the official reporter?',
+          choices:[
+            {v:'a',t:'<em>State v. Lawrence</em>, 365 N.C. 506 (2012).'},
+            {v:'b',t:'<em>State v. Lawrence</em>, 365 N.C. 506 (N.C. 2012).'},
+            {v:'c',t:'<em>State v. Lawrence</em>, 365 N.C. 506 (N.C. Sup. Ct. 2012).'}
+          ],
+          answer:'a',
+          explain:'<span class="cite">N.C.</span> is the highest-court official reporter — the court is implied. Just the year.'
+        },
+        {
+          rule:'T1·NC',
+          q:'Which is the correct Bluebook citation form for a North Carolina statute?',
+          choices:[
+            {v:'a',t:'N.C.G.S. § 14-72 (2023).'},
+            {v:'b',t:'N.C. Gen. Stat. § 14-72 (2023).'},
+            {v:'c',t:'NC Gen. Stat. § 14-72 (2023).'}
+          ],
+          answer:'b',
+          explain:'The Bluebook abbreviation is <strong>N.C. Gen. Stat.</strong> Don\'t use "N.C.G.S." in Bluebook form.'
+        },
+        {
+          rule:'T6',
+          q:'Table 6 abbreviation for "Corporation" in a case name is:',
+          choices:[
+            {v:'a',t:'Corporation (do not abbreviate)'},
+            {v:'b',t:'Corp.'},
+            {v:'c',t:'Corpor.'}
+          ],
+          answer:'b',
+          explain:'<strong>Corp.</strong> Apply it whenever "Corporation" appears in a case name (after the first word of a party name).'
+        },
+        {
+          rule:'T6',
+          q:'A party is "Federal Trade Commission". The correct case-name form is:',
+          choices:[
+            {v:'a',t:'Fed. Trade Comm’n'},
+            {v:'b',t:'Federal Trade Comm’n'},
+            {v:'c',t:'F.T.C.'}
+          ],
+          answer:'b',
+          explain:'Don\'t abbreviate a Table 6 word when it is the <strong>first word</strong> of a party\'s name. "Commission" → <strong>Comm’n</strong>.'
+        },
+        {
+          rule:'B10.1.2',
+          q:'Range of pages from 245 through 251 is written as:',
+          choices:[
+            {v:'a',t:'245–251'},
+            {v:'b',t:'245-51'},
+            {v:'c',t:'245 to 251'}
+          ],
+          answer:'b',
+          explain:'Drop repeated digits and use a hyphen: <strong>245-51</strong>.'
+        }
+      ]
+    },
+    {
+      name: 'Test 2 · Application',
+      sub: 'Harder fact patterns. Test your understanding of why each rule exists.',
+      questions: [
+        {
+          rule:'B1.1',
+          q:'A writer wants to support only the middle clause of a long sentence with a citation. The best approach is:',
+          choices:[
+            {v:'a',t:'A citation sentence after the period.'},
+            {v:'b',t:'A citation clause set off by commas immediately after the clause.'},
+            {v:'c',t:'A footnote at the end of the paragraph.'},
+            {v:'d',t:'Move the cited proposition to its own sentence.'}
+          ],
+          answer:'b',
+          explain:'A <strong>citation clause</strong> in commas is the cleanest way to tie a citation to one part of a sentence. Citation sentences support entire previous sentences.'
+        },
+        {
+          rule:'B1.2',
+          q:'Which sentence correctly orders multiple signals?',
+          choices:[
+            {v:'a',t:'But see X; see Y; cf. Z.'},
+            {v:'b',t:'See Y; cf. Z; but see X.'},
+            {v:'c',t:'Cf. Z; see Y; but see X.'}
+          ],
+          answer:'b',
+          explain:'Order: supportive signals (see, see also), then comparison (cf., compare), then contradictory (but see, but cf.), then background (see generally).'
+        },
+        {
+          rule:'B1.2',
+          q:'You want to add a closely related but distinct supporting case. Which signal?',
+          choices:[
+            {v:'a',t:'See'},
+            {v:'b',t:'See also'},
+            {v:'c',t:'No signal'},
+            {v:'d',t:'But see'}
+          ],
+          answer:'b',
+          explain:'<strong>See also</strong> is for additional supporting authority distinct from what you have already cited.'
+        },
+        {
+          rule:'B1.3',
+          q:'After which of the following signals is a parenthetical <strong>strongly preferred</strong>?',
+          choices:[
+            {v:'a',t:'No signal'},
+            {v:'b',t:'Cf.'},
+            {v:'c',t:'See'}
+          ],
+          answer:'b',
+          explain:'<strong>Cf.</strong> almost always requires a parenthetical to explain the analogy. The same is true for <em>see also</em>, <em>compare</em>, and <em>see generally</em>.'
+        },
+        {
+          rule:'B5.3',
+          q:'Which of the following uses an ellipsis correctly in a quotation?',
+          choices:[
+            {v:'a',t:'"The defendant ... failed to take reasonable steps."'},
+            {v:'b',t:'"The defendant. . .failed to take reasonable steps."'},
+            {v:'c',t:'"The defendant . . . failed to take reasonable steps."'}
+          ],
+          answer:'c',
+          explain:'The Bluebook ellipsis is <strong>three periods with spaces</strong>: a space before, between, and after the periods.'
+        },
+        {
+          rule:'B5.3',
+          q:'A quoted passage contained a citation that you are omitting. What parenthetical do you add?',
+          choices:[
+            {v:'a',t:'(emphasis added)'},
+            {v:'b',t:'(citation omitted)'},
+            {v:'c',t:'(quoting Smith)'},
+            {v:'d',t:'(quoting source)'}
+          ],
+          answer:'b',
+          explain:'<strong>(citation omitted)</strong> tells the reader you dropped an internal citation. Similarly, <em>(internal quotation marks omitted)</em> when you drop internal quotes.'
+        },
+        {
+          rule:'B10.1',
+          q:'A complete case citation requires which of the following at a minimum?',
+          choices:[
+            {v:'a',t:'Case name only.'},
+            {v:'b',t:'Case name, reporter citation, and parenthetical with year (and court when needed).'},
+            {v:'c',t:'Case name, docket number, and date of filing.'}
+          ],
+          answer:'b',
+          explain:'A full case citation always includes <strong>case name, reporter info, and a court-and-year parenthetical</strong>. A pinpoint is required whenever you cite a specific proposition.'
+        },
+        {
+          rule:'B10.1.1',
+          q:'Which case-name is correctly punctuated and italicized?',
+          choices:[
+            {v:'a',t:'<em>Smith v. Jones,</em> 100 F.3d 1, 4 (4th Cir. 1999).'},
+            {v:'b',t:'<em>Smith v. Jones</em>, 100 F.3d 1, 4 (4th Cir. 1999).'},
+            {v:'c',t:'<em>Smith</em> v. <em>Jones</em>, 100 F.3d 1, 4 (4th Cir. 1999).'}
+          ],
+          answer:'b',
+          explain:'Italicize the entire case name including "v.", but <strong>not</strong> the comma after it.'
+        },
+        {
+          rule:'B10.1.1',
+          q:'A party is "United States of America". How does it appear in a case name?',
+          choices:[
+            {v:'a',t:'U.S.'},
+            {v:'b',t:'United States'},
+            {v:'c',t:'U.S.A.'}
+          ],
+          answer:'b',
+          explain:'Use <strong>"United States"</strong> when the U.S. is a party. Don\'t abbreviate.'
+        },
+        {
+          rule:'B10.1.2',
+          q:'You have a case decided by SCOTUS that\'s not yet in the U.S. Reports. Which preferred reporter do you cite?',
+          choices:[
+            {v:'a',t:'S. Ct.'},
+            {v:'b',t:'L. Ed.'},
+            {v:'c',t:'WL'},
+            {v:'d',t:'U.S. (do not cite if unavailable)'}
+          ],
+          answer:'a',
+          explain:'Preference order for SCOTUS: <strong>U.S. → S. Ct. → L. Ed.</strong> Use the highest available in that order.'
+        },
+        {
+          rule:'B10.1.2',
+          q:'Two non-consecutive pinpoints, pages 488 and 495, are cited as:',
+          choices:[
+            {v:'a',t:'488; 495'},
+            {v:'b',t:'488, 495'},
+            {v:'c',t:'488-95'}
+          ],
+          answer:'b',
+          explain:'Non-consecutive pinpoints take a <strong>comma-separated list</strong>: 488, 495. A hyphen would imply the whole range.'
+        },
+        {
+          rule:'B10.1.3',
+          q:'You cite a case from the Eastern District of North Carolina. The court abbreviation is:',
+          choices:[
+            {v:'a',t:'N.C. Dist.'},
+            {v:'b',t:'E.D.N.C.'},
+            {v:'c',t:'D.N.C. (E)'}
+          ],
+          answer:'b',
+          explain:'Federal district courts use district abbreviations: <strong>E.D.N.C.</strong> for the Eastern District of North Carolina.'
+        },
+        {
+          rule:'B10.1.3',
+          q:'A case in the regional reporter S.E.2d decided by a state intermediate court needs the parenthetical to include:',
+          choices:[
+            {v:'a',t:'Only the year.'},
+            {v:'b',t:'The state name and the year.'},
+            {v:'c',t:'The state, the court, and the year.'}
+          ],
+          answer:'c',
+          explain:'Regional reporters cover multiple states, and the court is not implied — so include both <strong>the state and the court</strong>: e.g., (N.C. Ct. App. 2018).'
+        },
+        {
+          rule:'B10.2',
+          q:'Five footnotes (or several pages) ago you cited Harlow in full. Now you want to cite it again. The safest move is to:',
+          choices:[
+            {v:'a',t:'Use <em>id.</em>'},
+            {v:'b',t:'Use a short form with the case name.'},
+            {v:'c',t:'Repeat the full citation.'}
+          ],
+          answer:'b',
+          explain:'After a gap, the short form (or a re-introduced full cite) keeps the reader oriented. <em>Id.</em> only works for the <strong>immediately preceding</strong> source.'
+        },
+        {
+          rule:'B10.2',
+          q:'In a short-form citation, the case name is:',
+          choices:[
+            {v:'a',t:'Italicized.'},
+            {v:'b',t:'In regular roman type.'},
+            {v:'c',t:'In small caps.'}
+          ],
+          answer:'a',
+          explain:'Italicize the case name (whether you use both parties or just one) in the short form.'
+        },
+        {
+          rule:'T1·NC',
+          q:'A 2015 North Carolina Court of Appeals decision is cited as:',
+          choices:[
+            {v:'a',t:'240 N.C. App. 88 (2015)'},
+            {v:'b',t:'240 N.C. App. 88 (N.C. Ct. App. 2015)'},
+            {v:'c',t:'240 N.C. 88 (N.C. App. 2015)'}
+          ],
+          answer:'b',
+          explain:'<span class="cite">N.C. App.</span> is the reporter, but it doesn\'t identify the court. Include the court in the parenthetical: <strong>(N.C. Ct. App. 2015)</strong>.'
+        },
+        {
+          rule:'T1·NC',
+          q:'A citation to subsection (a) of N.C. Gen. Stat. § 14-72 is written:',
+          choices:[
+            {v:'a',t:'N.C. Gen. Stat. § 14-72(a) (2023).'},
+            {v:'b',t:'N.C. Gen. Stat. § 14-72, sub. (a) (2023).'},
+            {v:'c',t:'N.C. Gen. Stat. ch. 14, § 72(a) (2023).'}
+          ],
+          answer:'a',
+          explain:'Subsection follows the section number with no space: <strong>§ 14-72(a)</strong>. Add the year of the bound volume in the parenthetical.'
+        },
+        {
+          rule:'T6',
+          q:'Table 6 abbreviation for "National":',
+          choices:[
+            {v:'a',t:'Natl.'},
+            {v:'b',t:'Nat.'},
+            {v:'c',t:'Nat’l'}
+          ],
+          answer:'c',
+          explain:'Table 6 uses an apostrophe to mark the contracted middle: <strong>Nat’l</strong>. Same pattern: Int’l, Gov’t, Dep’t, Ass’n.'
+        },
+        {
+          rule:'T6',
+          q:'A party named "Smith Manufacturing Company, Inc." appears in a case name as:',
+          choices:[
+            {v:'a',t:'Smith Manufacturing Company, Inc.'},
+            {v:'b',t:'Smith Mfg. Co., Inc.'},
+            {v:'c',t:'S. Mfg. Co. Inc.'}
+          ],
+          answer:'b',
+          explain:'Apply Table 6 abbreviations to non-first words: <strong>Smith Mfg. Co., Inc.</strong> "Smith" is the first word and is a proper name, so it stays.'
+        },
+        {
+          rule:'B1.3',
+          q:'Which is the best parenthetical for a "see also" cite?',
+          choices:[
+            {v:'a',t:'(qualified immunity case)'},
+            {v:'b',t:'(applying Harlow to deny summary judgment where the right was clearly established)'},
+            {v:'c',t:'(another case on this topic)'}
+          ],
+          answer:'b',
+          explain:'A good parenthetical names the case\'s specific contribution. Vague labels do not earn the citation\'s space on the page.'
+        }
+      ]
+    },
+    {
+      name: 'Test 3 · Polish',
+      sub: 'Edge cases and Table 6 fine points.',
+      questions: [
+        {
+          rule:'B1.1',
+          q:'When you split two distinct propositions across one sentence, each supported by a different case, the cleanest approach is:',
+          choices:[
+            {v:'a',t:'Two citation sentences after the period.'},
+            {v:'b',t:'A single citation sentence with both cases joined by a semicolon.'},
+            {v:'c',t:'Two citation clauses, one after each proposition.'}
+          ],
+          answer:'c',
+          explain:'When citations support different parts of the sentence, use <strong>separate citation clauses</strong> placed next to each proposition.'
+        },
+        {
+          rule:'B1.2',
+          q:'You cite a case that directly contradicts your proposition by analogy (different facts, opposite reasoning). Which signal?',
+          choices:[
+            {v:'a',t:'But see'},
+            {v:'b',t:'But cf.'},
+            {v:'c',t:'Cf.'},
+            {v:'d',t:'See generally'}
+          ],
+          answer:'b',
+          explain:'<strong>But cf.</strong> is the mirror of <em>cf.</em>: it contradicts your proposition <strong>by analogy</strong>. <em>But see</em> would be for direct contradiction.'
+        },
+        {
+          rule:'B1.2',
+          q:'A signal that introduces background or context — not specific authority for the proposition — is:',
+          choices:[
+            {v:'a',t:'See also'},
+            {v:'b',t:'Cf.'},
+            {v:'c',t:'See generally'}
+          ],
+          answer:'c',
+          explain:'<strong>See generally</strong> introduces background. Always pair it with a parenthetical explaining why the source is useful context.'
+        },
+        {
+          rule:'B1.3',
+          q:'An explanatory parenthetical that is a full quoted sentence may:',
+          choices:[
+            {v:'a',t:'Begin with a capital letter and end with a period inside the parentheses.'},
+            {v:'b',t:'Use no quotation marks because it is in parentheses.'},
+            {v:'c',t:'Begin with an -ing verb anyway.'}
+          ],
+          answer:'a',
+          explain:'A complete quoted-sentence parenthetical is the <strong>exception</strong>: capital start, period inside the parens. Keep the quotation marks.'
+        },
+        {
+          rule:'B5.3',
+          q:'A quoted passage in your brief contained the words "[the plaintiff] testified". The brackets were in the original source\'s alteration. The correct parenthetical at the end of your citation is:',
+          choices:[
+            {v:'a',t:'(emphasis added)'},
+            {v:'b',t:'(alteration in original)'},
+            {v:'c',t:'(citation omitted)'},
+            {v:'d',t:'No parenthetical needed.'}
+          ],
+          answer:'b',
+          explain:'<strong>(alteration in original)</strong> tells the reader the bracketed change was made by the earlier court, not by you.'
+        },
+        {
+          rule:'B5.3',
+          q:'In a Bluebook quotation, single quotation marks indicate:',
+          choices:[
+            {v:'a',t:'A quotation within a quotation.'},
+            {v:'b',t:'British-style quotation.'},
+            {v:'c',t:'A judge\'s name.'}
+          ],
+          answer:'a',
+          explain:'Double quotes are the default; <strong>single quotes</strong> mark a quotation that was itself nested inside the original quotation.'
+        },
+        {
+          rule:'B10.1',
+          q:'Which best describes when a pinpoint page is required?',
+          choices:[
+            {v:'a',t:'Only when quoting directly.'},
+            {v:'b',t:'Any time you cite the case for a specific proposition.'},
+            {v:'c',t:'Only when the case is more than 20 pages.'}
+          ],
+          answer:'b',
+          explain:'A pinpoint is required <strong>any time you rely on a specific proposition</strong> from a case — not just direct quotes. It points the reader to the page.'
+        },
+        {
+          rule:'B10.1.1',
+          q:'For a bankruptcy case "In re Estate of Smith", the correct case-name format is:',
+          choices:[
+            {v:'a',t:'<em>In re Estate of Smith</em>'},
+            {v:'b',t:'<em>In re</em> Estate of Smith'},
+            {v:'c',t:'Estate of Smith, <em>In re</em>'}
+          ],
+          answer:'a',
+          explain:'Italicize the <strong>entire</strong> case name, including the procedural phrase <em>In re</em>.'
+        },
+        {
+          rule:'B10.1.1',
+          q:'A party is "John Q. Smith, individually and as trustee for the Smith Family Trust". The case-name field is:',
+          choices:[
+            {v:'a',t:'John Q. Smith, individually'},
+            {v:'b',t:'Smith'},
+            {v:'c',t:'Smith Family Trust'}
+          ],
+          answer:'b',
+          explain:'Use only the last name for individuals; drop procedural and capacity phrases like "individually" and "as trustee".'
+        },
+        {
+          rule:'B10.1.2',
+          q:'In the citation 457 U.S. 800, 818, the number 818 refers to:',
+          choices:[
+            {v:'a',t:'The volume number.'},
+            {v:'b',t:'The first page of the case.'},
+            {v:'c',t:'The pinpoint page being cited.'}
+          ],
+          answer:'c',
+          explain:'After the comma, the second number is the <strong>pinpoint page</strong> — the specific page being cited. The first page of the case is 800.'
+        },
+        {
+          rule:'B10.1.2',
+          q:'Which reporter abbreviation is correctly spaced?',
+          choices:[
+            {v:'a',t:'S.Ct.'},
+            {v:'b',t:'S. Ct.'},
+            {v:'c',t:'SCt.'}
+          ],
+          answer:'b',
+          explain:'Insert a space between the single capital "S." and the multi-letter abbreviation "Ct.": <strong>S. Ct.</strong>'
+        },
+        {
+          rule:'B10.1.3',
+          q:'A North Carolina Supreme Court case cited to the regional reporter S.E.2d (and not parallel to N.C.) requires the parenthetical:',
+          choices:[
+            {v:'a',t:'(2012)'},
+            {v:'b',t:'(N.C. 2012)'},
+            {v:'c',t:'(N.C. Sup. Ct. 2012)'}
+          ],
+          answer:'b',
+          explain:'When the case is only in a regional reporter, identify the deciding court: <strong>(N.C. 2012)</strong> for the North Carolina Supreme Court.'
+        },
+        {
+          rule:'B10.2',
+          q:'After citing United States v. Smith in full, which is the better short form?',
+          choices:[
+            {v:'a',t:'<em>United States</em>, 800 F.3d at 110.'},
+            {v:'b',t:'<em>Smith</em>, 800 F.3d at 110.'},
+            {v:'c',t:'<em>United States v. Smith</em>, 800 F.3d at 110.'}
+          ],
+          answer:'b',
+          explain:'Use the <strong>more distinctive</strong> party name. "United States" appears in countless cases; "Smith" identifies this one.'
+        },
+        {
+          rule:'B10.2',
+          q:'The period in "Id." is:',
+          choices:[
+            {v:'a',t:'Italicized along with "Id".'},
+            {v:'b',t:'Roman; only "Id" is italicized.'},
+            {v:'c',t:'Optional.'}
+          ],
+          answer:'a',
+          explain:'Italicize the entire abbreviation including its period: <em>Id.</em> The period is part of the abbreviation.'
+        },
+        {
+          rule:'T1·NC',
+          q:'You cite a 2012 North Carolina Supreme Court decision and include a parallel regional citation. The format is:',
+          choices:[
+            {v:'a',t:'<em>State v. Lawrence</em>, 365 N.C. 506, 723 S.E.2d 326 (2012).'},
+            {v:'b',t:'<em>State v. Lawrence</em>, 723 S.E.2d 326, 365 N.C. 506 (N.C. 2012).'},
+            {v:'c',t:'<em>State v. Lawrence</em>, 365 N.C. 506 (2012) (parallel: 723 S.E.2d 326).'}
+          ],
+          answer:'a',
+          explain:'Official reporter first, then the parallel regional citation. Because <span class="cite">N.C.</span> already identifies the court, just the year goes in the parenthetical.'
+        },
+        {
+          rule:'T1·NC',
+          q:'When citing material that appears only in a supplement to the N.C. General Statutes, the parenthetical is:',
+          choices:[
+            {v:'a',t:'(2023)'},
+            {v:'b',t:'(Supp. 2023)'},
+            {v:'c',t:'(N.C. 2023)'}
+          ],
+          answer:'b',
+          explain:'Use <strong>(Supp. 2023)</strong> when citing material that appears in a supplement rather than the main bound volume.'
+        },
+        {
+          rule:'T6',
+          q:'The Table 6 abbreviation for "Society" is:',
+          choices:[
+            {v:'a',t:'Soc.'},
+            {v:'b',t:'Soc’y'},
+            {v:'c',t:'Soci.'}
+          ],
+          answer:'b',
+          explain:'<strong>Soc’y</strong> — like the apostrophe pattern in Ass’n, Nat’l, Gov’t, Dep’t.'
+        },
+        {
+          rule:'T6',
+          q:'"International Business Machines Corporation" as a party in a case is best abbreviated as:',
+          choices:[
+            {v:'a',t:'Int’l Bus. Machs. Corp.'},
+            {v:'b',t:'International Bus. Machs. Corp.'},
+            {v:'c',t:'I.B.M. Corp.'}
+          ],
+          answer:'b',
+          explain:'"International" is the <strong>first word</strong> of the party\'s name, so don\'t abbreviate it. "Business" → <strong>Bus.</strong>, "Machines" → <strong>Machs.</strong>, "Corporation" → <strong>Corp.</strong>'
+        },
+        {
+          rule:'T6',
+          q:'Which Table 6 abbreviation is wrong?',
+          choices:[
+            {v:'a',t:'Department → Dep’t'},
+            {v:'b',t:'Government → Gov’t'},
+            {v:'c',t:'University → Univ.'},
+            {v:'d',t:'Brothers → Brothers (do not abbreviate)'}
+          ],
+          answer:'d',
+          explain:'"Brothers" <em>is</em> on Table 6 — abbreviate it as <strong>Bros.</strong> The others are correct.'
+        },
+        {
+          rule:'B1.1',
+          q:'Within a citation sentence, multiple authorities are joined by:',
+          choices:[
+            {v:'a',t:'A comma.'},
+            {v:'b',t:'A semicolon.'},
+            {v:'c',t:'The word "and".'}
+          ],
+          answer:'b',
+          explain:'Citations within a citation sentence are separated by <strong>semicolons</strong>; the sentence ends with a single period.'
+        }
+      ]
+    }
+  ];
+
+  // ===== State =====
+  let currentTestIdx = null;
+  let currentAnswers = {}; // qIdx -> chosenValue
+
+  // ===== Render helpers =====
+  function startTest(idx) {
+    currentTestIdx = idx;
+    currentAnswers = {};
+    const test = TESTS[idx];
+    document.getElementById('picker').classList.add('hidden');
+    document.getElementById('results-pane').classList.add('hidden');
+    document.getElementById('test-pane').classList.remove('hidden');
+    document.getElementById('test-eyebrow').textContent = test.name;
+    document.getElementById('test-title').textContent = '20 questions across every Citeline rule.';
+    document.getElementById('test-sub').textContent = test.sub;
+    document.getElementById('submit-meta').textContent = '0 of 20 answered';
+
+    const wrap = document.getElementById('test-questions');
+    wrap.innerHTML = test.questions.map((q, i) => `
+      <div class="exercise" data-qi="${i}">
+        <div class="exercise__head">
+          <span class="exercise__label">Question ${i + 1} · ${q.rule}</span>
+        </div>
+        <div class="exercise__q">${q.q}</div>
+        <div class="exercise__choices">
+          ${q.choices.map(c => `
+            <label class="choice">
+              <input type="radio" name="q${i}" value="${c.v}" onchange="recordAnswer(${i}, '${c.v}')"/>
+              <span>${c.t}</span>
+            </label>
+          `).join('')}
+        </div>
+      </div>
+    `).join('');
+
+    updateProgress();
+    window.scrollTo({ top: document.getElementById('test-pane').offsetTop - 40, behavior:'smooth' });
+  }
+
+  function recordAnswer(i, v) {
+    currentAnswers[i] = v;
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const answered = Object.keys(currentAnswers).length;
+    const pct = (answered / 20) * 100;
+    document.getElementById('progress-fill').style.width = pct + '%';
+    document.getElementById('submit-meta').textContent = `${answered} of 20 answered`;
+  }
+
+  function submitTest() {
+    const test = TESTS[currentTestIdx];
+    const total = test.questions.length;
+    const unanswered = total - Object.keys(currentAnswers).length;
+    if (unanswered > 0) {
+      if (!confirm(`You have ${unanswered} unanswered question${unanswered === 1 ? '' : 's'}. Submit anyway?`)) {
+        return;
+      }
+    }
+    let correct = 0;
+    test.questions.forEach((q, i) => {
+      if (currentAnswers[i] === q.answer) correct++;
+    });
+    const pct = Math.round((correct / total) * 100);
+
+    document.getElementById('result-correct').textContent = correct;
+    document.getElementById('result-pct').textContent = pct + '%';
+    document.getElementById('result-name').textContent = test.name;
+    document.getElementById('result-grade').textContent = gradeFor(pct);
+
+    const resultsList = document.getElementById('results-list');
+    resultsList.innerHTML = '<h3 style="margin: var(--space-8) 0 var(--space-4);">Walk through each question</h3>' + test.questions.map((q, i) => {
+      const picked = currentAnswers[i];
+      const wasCorrect = picked === q.answer;
+      const noAnswer = !picked;
+      const pickedTxt = noAnswer ? '<em>You skipped this question.</em>' : q.choices.find(c => c.v === picked).t;
+      const correctTxt = q.choices.find(c => c.v === q.answer).t;
+      const cls = wasCorrect ? 'is-correct' : 'is-wrong';
+      const heading = noAnswer
+        ? '<strong>Skipped.</strong>'
+        : (wasCorrect ? '<strong>Correct.</strong>' : '<strong>Not quite.</strong>');
+      return `
+        <div class="exercise" style="border-color: ${wasCorrect ? 'var(--accent-moss)' : 'var(--accent-coral)'};">
+          <div class="exercise__head">
+            <span class="exercise__label">Question ${i + 1} · ${q.rule}</span>
+            <span class="tag ${wasCorrect ? 'tag--moss' : 'tag--coral'}">${wasCorrect ? 'Correct' : (noAnswer ? 'Skipped' : 'Missed')}</span>
+          </div>
+          <div class="exercise__q">${q.q}</div>
+          <div style="font-size: var(--fs-14); margin-bottom: var(--space-3);">
+            <div style="margin-bottom: 4px;"><span class="muted">Your answer:</span> ${pickedTxt}</div>
+            <div><span class="muted">Correct answer:</span> ${correctTxt}</div>
+          </div>
+          <div class="exercise__feedback show ${cls}" style="display:block;">
+            ${heading} ${q.explain}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('test-pane').classList.add('hidden');
+    document.getElementById('results-pane').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior:'smooth' });
+  }
+
+  function gradeFor(pct) {
+    if (pct >= 95) return 'Excellent';
+    if (pct >= 85) return 'Strong';
+    if (pct >= 75) return 'Solid';
+    if (pct >= 60) return 'Getting there';
+    return 'Keep going';
+  }
+
+  function backToPicker() {
+    document.getElementById('test-pane').classList.add('hidden');
+    document.getElementById('results-pane').classList.add('hidden');
+    document.getElementById('picker').classList.remove('hidden');
+    window.scrollTo({ top: 0, behavior:'smooth' });
+  }
+
+  function retakeTest() {
+    if (currentTestIdx !== null) startTest(currentTestIdx);
+  }
+</script>
+
+</body>
+</html>

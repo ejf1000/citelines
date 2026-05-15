@@ -1,0 +1,652 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Practice — Citelines</title>
+  <link rel="icon" type="image/svg+xml" href="./design-system/assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="./site.css"/>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__row">
+    <a href="./index.html" class="nav__brand">
+      <img src="./design-system/assets/logo-wordmark.svg" alt="Citelines"/>
+      <span class="nav__brand-sub">Learn the Bluebook</span>
+    </a>
+    <nav class="nav__links">
+      <a href="./index.html">Home</a>
+      <a href="./learn.html">Learn</a>
+      <a href="./practice.html" class="is-active">Practice</a>
+      <a href="./assessment.html">Assessments</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: var(--space-12) 0 var(--space-6); border-bottom: 1px solid var(--border-hairline); background: linear-gradient(180deg, var(--paper-50), var(--paper-100));">
+  <div class="container">
+    <div class="hero__eyebrow">Practice · one rule at a time</div>
+    <h1 style="max-width: 22ch;">Pick a topic and drill it.</h1>
+    <p class="hero__lede" style="margin-top: var(--space-4); max-width: 64ch;">Each topic has several practice problems. Submit one at a time and we'll show you what's right, what's not, and the rule behind the answer.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="eyebrow">Choose a topic</div>
+    <h2 style="margin-bottom: var(--space-3);">Citeline rules</h2>
+    <p class="muted" style="max-width: 60ch; margin-bottom: var(--space-6);">Pick a rule below to load its practice set. You can switch topics at any time.</p>
+
+    <div class="topic-grid" id="topic-grid">
+      <!-- topic tiles injected by JS -->
+    </div>
+
+    <div id="practice-pane" class="hidden">
+      <div style="display:flex; justify-content:space-between; align-items:flex-end; gap: var(--space-4); flex-wrap:wrap; margin: var(--space-10) 0 var(--space-5); border-bottom: 1px solid var(--border-hairline); padding-bottom: var(--space-4);">
+        <div>
+          <div class="eyebrow" id="pane-rule"></div>
+          <h2 id="pane-title" style="margin-bottom: var(--space-2);"></h2>
+          <p class="muted" id="pane-desc" style="margin: 0; max-width: 60ch;"></p>
+        </div>
+        <div style="display:flex; gap: var(--space-3); align-items:center;">
+          <span class="muted small" id="pane-progress"></span>
+          <button class="btn btn--ghost btn--sm" onclick="resetTopic()">Reset answers</button>
+        </div>
+      </div>
+
+      <div id="questions"></div>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <img src="./design-system/assets/logo-wordmark-light.svg" alt="Citelines"/>
+        <p>A study companion to the Bluebook's blue pages, built for 1Ls.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--paper-50); margin-bottom: var(--space-3); font-size: var(--fs-14);">Sections</h4>
+        <ul style="list-style:none; padding:0; margin:0; font-size: var(--fs-14); display:flex; flex-direction:column; gap: 6px;">
+          <li><a href="./learn.html" style="color: var(--ink-200);">Learn</a></li>
+          <li><a href="./practice.html" style="color: var(--ink-200);">Practice</a></li>
+          <li><a href="./assessment.html" style="color: var(--ink-200);">Assessments</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Citelines &middot; Carolina Law study companion</span>
+      <span>Always check the current edition of the Bluebook for authoritative rules.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== Practice data =====
+  const TOPICS = [
+    {
+      id: 'b1-1',
+      rule: 'B1.1',
+      title: 'Citation sentences and clauses',
+      desc: 'When to use a citation sentence, when to use a clause, and how to punctuate each.',
+      questions: [
+        {
+          q: 'A writer puts a citation directly after a single sentence proposition. The citation supports the entire sentence and stands on its own. Is this a citation sentence or a citation clause?',
+          choices: [
+            { v:'a', t:'Citation sentence' },
+            { v:'b', t:'Citation clause' },
+            { v:'c', t:'Either — the Bluebook treats them the same' }
+          ],
+          answer:'a',
+          explain:'A standalone citation that supports the whole previous sentence is a <strong>citation sentence</strong>. It is its own grammatical sentence, capitalized and ending with a period.'
+        },
+        {
+          q: 'The proposition "The plaintiff prevailed at trial" needs no citation. The proposition "the defendant appealed and lost" needs one. The writer wants the citation to support only the second proposition. Where should the citation go?',
+          choices: [
+            { v:'a', t:'As a citation sentence after the period.' },
+            { v:'b', t:'As a citation clause inside the sentence, set off by commas.' },
+            { v:'c', t:'In a footnote — citations cannot appear mid-sentence.' }
+          ],
+          answer:'b',
+          explain:'When a citation supports only part of a sentence, use a <strong>citation clause</strong> set off by commas and placed next to the proposition it supports.'
+        },
+        {
+          q: 'Which of the following correctly punctuates a citation sentence with two supporting authorities?',
+          choices: [
+            { v:'a', t:'Harlow v. Fitzgerald, 457 U.S. 800 (1982), Pearson v. Callahan, 555 U.S. 223 (2009).' },
+            { v:'b', t:'Harlow v. Fitzgerald, 457 U.S. 800 (1982); Pearson v. Callahan, 555 U.S. 223 (2009).' },
+            { v:'c', t:'Harlow v. Fitzgerald, 457 U.S. 800 (1982). Pearson v. Callahan, 555 U.S. 223 (2009).' }
+          ],
+          answer:'b',
+          explain:'Multiple citations within a single citation sentence are separated by <strong>semicolons</strong>, ending with a single period.'
+        },
+        {
+          q: 'A citation clause supports a mid-sentence proposition. Which punctuation is correct around the clause?',
+          choices: [
+            { v:'a', t:'Periods on both sides.' },
+            { v:'b', t:'A comma before the clause and a comma after it.' },
+            { v:'c', t:'A semicolon before and a comma after.' }
+          ],
+          answer:'b',
+          explain:'A citation clause is set off from the surrounding sentence by <strong>commas</strong>, like any other parenthetical clause.'
+        }
+      ]
+    },
+    {
+      id: 'b1-2',
+      rule: 'B1.2',
+      title: 'Introductory signals',
+      desc: 'Pick the signal that matches what the source actually does for your point.',
+      questions: [
+        {
+          q: 'Your sentence states a proposition exactly as the cited case held it. What signal precedes the citation?',
+          choices: [
+            { v:'a', t:'See' },
+            { v:'b', t:'See also' },
+            { v:'c', t:'No signal at all' },
+            { v:'d', t:'Cf.' }
+          ],
+          answer:'c',
+          explain:'When the source <strong>directly states</strong> the proposition, you use <strong>no signal</strong>. Signals tell the reader the source supports your point in some less-direct way.'
+        },
+        {
+          q: 'Your point is about a Fourth Amendment search. You cite a Fifth Amendment self-incrimination case because the reasoning is analogous. Which signal fits?',
+          choices: [
+            { v:'a', t:'See' },
+            { v:'b', t:'See also' },
+            { v:'c', t:'Cf.' },
+            { v:'d', t:'But see' }
+          ],
+          answer:'c',
+          explain:'<strong>Cf.</strong> introduces authority that supports the point <strong>by analogy</strong>. A Fifth Amendment case bolstering a Fourth Amendment argument is a textbook <em>cf.</em> situation. Pair it with a parenthetical explaining the analogy.'
+        },
+        {
+          q: 'You\'ve already cited one case supporting your proposition. You want to add a second, closely related case as further support. Which signal?',
+          choices: [
+            { v:'a', t:'See' },
+            { v:'b', t:'See also' },
+            { v:'c', t:'But see' },
+            { v:'d', t:'No signal' }
+          ],
+          answer:'b',
+          explain:'<strong>See also</strong> introduces additional supporting authority that is related to but distinct from sources you have already cited. Generally pair it with a parenthetical explaining what it adds.'
+        },
+        {
+          q: 'You make a point about employer liability. You cite a case that <strong>directly rejects</strong> your position to acknowledge it for the reader. Which signal precedes the rejected case?',
+          choices: [
+            { v:'a', t:'But see' },
+            { v:'b', t:'But cf.' },
+            { v:'c', t:'See' },
+            { v:'d', t:'See generally' }
+          ],
+          answer:'a',
+          explain:'<strong>But see</strong> is for authority that <strong>contradicts your proposition directly</strong>. <em>But cf.</em> would be for authority that contradicts by analogy. Acknowledging adverse authority head-on calls for <em>but see</em>.'
+        },
+        {
+          q: 'You cite a treatise chapter for general background on the doctrine you\'re discussing. What signal best fits?',
+          choices: [
+            { v:'a', t:'See' },
+            { v:'b', t:'Cf.' },
+            { v:'c', t:'See generally' },
+            { v:'d', t:'See also' }
+          ],
+          answer:'c',
+          explain:'<strong>See generally</strong> is the signal for background or context — a treatise or article giving the reader the broader landscape. Always pair it with a parenthetical explaining why the background is useful.'
+        }
+      ]
+    },
+    {
+      id: 'b1-3',
+      rule: 'B1.3',
+      title: 'Explanatory parentheticals',
+      desc: 'Format the parenthetical correctly and use it when the rule expects it.',
+      questions: [
+        {
+          q: 'Which parenthetical is formatted correctly under B1.3?',
+          choices: [
+            { v:'a', t:'(The court held that government officials are immune.)' },
+            { v:'b', t:'(Holding that government officials are immune.)' },
+            { v:'c', t:'(holding that government officials are immune)' }
+          ],
+          answer:'c',
+          explain:'Explanatory parentheticals generally begin with a <strong>present participle</strong> (an -ing verb), are not capitalized, and have no internal period. Use a full quoted sentence only when you are actually quoting a complete sentence.'
+        },
+        {
+          q: 'After which signal is a parenthetical <strong>strongly preferred</strong>?',
+          choices: [
+            { v:'a', t:'No signal' },
+            { v:'b', t:'See' },
+            { v:'c', t:'Cf.' },
+            { v:'d', t:'(none — parentheticals are always optional)' }
+          ],
+          answer:'c',
+          explain:'<strong>Cf.</strong> almost always needs a parenthetical, because the reader otherwise can\'t tell <em>why</em> an analogous source supports the point. The same is true for <em>see also</em>, <em>compare</em>, and <em>see generally</em>.'
+        },
+        {
+          q: 'Which is a strong explanatory parenthetical for a "see also" cite about qualified immunity?',
+          choices: [
+            { v:'a', t:'(qualified immunity)' },
+            { v:'b', t:'(extending Harlow to clearly-established-law analysis at summary judgment)' },
+            { v:'c', t:'(the case is about qualified immunity in the Fourth Circuit)' }
+          ],
+          answer:'b',
+          explain:'A good parenthetical does work — it tells the reader <strong>what the case adds</strong>. Vague labels like "qualified immunity" leave the reader to guess. Start with an -ing verb and name the specific contribution.'
+        }
+      ]
+    },
+    {
+      id: 'b5-3',
+      rule: 'B5.3',
+      title: 'Modifying quotations and citations',
+      desc: 'Brackets, ellipses, and the "(emphasis added)" family.',
+      questions: [
+        {
+          q: 'You quote a sentence but italicize one word for emphasis. The italics are yours, not the original court\'s. What goes at the end of the citation?',
+          choices: [
+            { v:'a', t:'(emphasis added)' },
+            { v:'b', t:'(emphasis in original)' },
+            { v:'c', t:'(alteration in original)' },
+            { v:'d', t:'(quoting source)' }
+          ],
+          answer:'a',
+          explain:'<strong>(emphasis added)</strong> signals that the italics are yours. Without it, the reader can\'t tell whether the original court emphasized the word — which would mislead them.'
+        },
+        {
+          q: 'You replace the word "he" in a quotation with "[the defendant]" to clarify the antecedent. What signals that you did this?',
+          choices: [
+            { v:'a', t:'A parenthetical "(quotation modified)" at the end.' },
+            { v:'b', t:'The square brackets around "[the defendant]" themselves.' },
+            { v:'c', t:'Nothing — clarifying changes need no marker.' }
+          ],
+          answer:'b',
+          explain:'<strong>Square brackets</strong> are themselves the marker for any substitution inside a quotation. No extra parenthetical is needed for a small clarifying change.'
+        },
+        {
+          q: 'A quotation omits words from the middle of a sentence. How is the omission shown?',
+          choices: [
+            { v:'a', t:'With three periods, with spaces, written as . . .' },
+            { v:'b', t:'With three periods, no spaces, written as ...' },
+            { v:'c', t:'With the word "[omitted]" in brackets.' }
+          ],
+          answer:'a',
+          explain:'The Bluebook ellipsis is <strong>three periods separated by spaces</strong>: . . . — one space before, between, and after. Don\'t use the single ellipsis character.'
+        }
+      ]
+    },
+    {
+      id: 'b10-1-1',
+      rule: 'B10.1.1',
+      title: 'Case names',
+      desc: 'How to format party names in a citation.',
+      questions: [
+        {
+          q: 'Which is the correct case-name format for a citation?',
+          choices: [
+            { v:'a', t:'Brown vs. Board of Education' },
+            { v:'b', t:'Brown v. Board of Education' },
+            { v:'c', t:'Brown V. Board of Education' }
+          ],
+          answer:'b',
+          explain:'The connector is <strong>"v."</strong> — lowercase, with a period, italicized along with the rest of the case name. Never "vs."'
+        },
+        {
+          q: 'The plaintiffs in a case are listed as "John Smith, Mary Jones, and James Roe." What name appears in the case-name field?',
+          choices: [
+            { v:'a', t:'John Smith, et al.' },
+            { v:'b', t:'Smith' },
+            { v:'c', t:'John Smith' },
+            { v:'d', t:'Smith, Jones & Roe' }
+          ],
+          answer:'b',
+          explain:'Use only the <strong>first party on each side</strong>, and for individuals use only the <strong>last name</strong>. Drop "et al." It is not part of the case-name format.'
+        },
+        {
+          q: 'The defendant is "ACME Manufacturing Corporation". How does it appear in the case name?',
+          choices: [
+            { v:'a', t:'ACME Manufacturing Corporation' },
+            { v:'b', t:'ACME Mfg. Corporation' },
+            { v:'c', t:'ACME Mfg. Corp.' },
+            { v:'d', t:'ACME M.C.' }
+          ],
+          answer:'c',
+          explain:'Apply Table 6 abbreviations: "Manufacturing" → <strong>Mfg.</strong> and "Corporation" → <strong>Corp.</strong>'
+        },
+        {
+          q: 'Which of the following case names is correctly italicized?',
+          choices: [
+            { v:'a', t:'<em>Smith v. Jones,</em> 100 F.3d 1' },
+            { v:'b', t:'<em>Smith v. Jones</em>, 100 F.3d 1' },
+            { v:'c', t:'<em>Smith v. Jones</em>, 100 <em>F.3d</em> 1' }
+          ],
+          answer:'b',
+          explain:'Italicize the <strong>case name only</strong>, including the "v." but <strong>not</strong> the comma that follows. The reporter abbreviation is in roman type.'
+        }
+      ]
+    },
+    {
+      id: 'b10-1-2',
+      rule: 'B10.1.2',
+      title: 'Reporters and pinpoint pages',
+      desc: 'Volume, reporter abbreviation, first page, pinpoint — order and spacing.',
+      questions: [
+        {
+          q: 'Which is correctly spaced under the Bluebook?',
+          choices: [
+            { v:'a', t:'457 U. S. 800' },
+            { v:'b', t:'457 U.S. 800' },
+            { v:'c', t:'457 US 800' }
+          ],
+          answer:'b',
+          explain:'Adjacent single capitals are <strong>closed up</strong> — no space between them. So <span class="cite">U.S.</span>, not <span class="cite">U. S.</span>'
+        },
+        {
+          q: 'Which is correctly spaced?',
+          choices: [
+            { v:'a', t:'500 F.Supp.3d 100' },
+            { v:'b', t:'500 F. Supp. 3d 100' },
+            { v:'c', t:'500 FSupp3d 100' }
+          ],
+          answer:'b',
+          explain:'A single letter abuts a multi-letter unit, so insert a space: <strong>F. Supp. 3d</strong>. The same rule gives you <strong>S. Ct.</strong> and <strong>L. Ed.</strong> with internal spaces.'
+        },
+        {
+          q: 'You are citing material on page 495 of a case that begins on page 483 in volume 347 of U.S. Reports. What is the correct citation (without case name)?',
+          choices: [
+            { v:'a', t:'347 U.S. 483 (495)' },
+            { v:'b', t:'347 U.S. 495' },
+            { v:'c', t:'347 U.S. 483, 495' }
+          ],
+          answer:'c',
+          explain:'Cite the <strong>first page of the case</strong> and then the <strong>pinpoint page</strong>, separated by a comma: <span class="cite">347 U.S. 483, 495</span>.'
+        },
+        {
+          q: 'A pinpoint range runs from page 483 through page 489. How is it written?',
+          choices: [
+            { v:'a', t:'483–489' },
+            { v:'b', t:'483-89' },
+            { v:'c', t:'483 to 489' }
+          ],
+          answer:'b',
+          explain:'For page ranges, drop repeated digits and use a hyphen: <strong>483-89</strong>. Always keep at least two digits on the second number.'
+        }
+      ]
+    },
+    {
+      id: 'b10-1-3',
+      rule: 'B10.1.3',
+      title: 'Court and year',
+      desc: 'When to include the court and when to leave it out.',
+      questions: [
+        {
+          q: 'You cite a U.S. Supreme Court case to the U.S. Reports. What goes in the parenthetical?',
+          choices: [
+            { v:'a', t:'(U.S. 1982)' },
+            { v:'b', t:'(S. Ct. 1982)' },
+            { v:'c', t:'(1982)' }
+          ],
+          answer:'c',
+          explain:'Citing to <span class="cite">U.S.</span> already tells the reader which court decided the case, so the parenthetical contains <strong>only the year</strong>.'
+        },
+        {
+          q: 'You cite a Fourth Circuit decision in F.3d. What does the parenthetical look like?',
+          choices: [
+            { v:'a', t:'(4th Cir. 2016)' },
+            { v:'b', t:'(2016)' },
+            { v:'c', t:'(C.A.4 2016)' }
+          ],
+          answer:'a',
+          explain:'Federal courts of appeals always require the circuit abbreviation in the parenthetical: <strong>(4th Cir. 2016)</strong>. The F.3d reporter alone doesn\'t tell the reader which circuit.'
+        },
+        {
+          q: 'You cite an Eastern District of North Carolina decision in F. Supp. 3d. What goes in the parenthetical?',
+          choices: [
+            { v:'a', t:'(N.C. 2019)' },
+            { v:'b', t:'(E.D.N.C. 2019)' },
+            { v:'c', t:'(N.C. Dist. 2019)' }
+          ],
+          answer:'b',
+          explain:'Federal district courts use the district abbreviation: <strong>E.D.N.C.</strong> for the Eastern District of North Carolina.'
+        },
+        {
+          q: 'Which parenthetical correctly accompanies a citation to 365 N.C. 506?',
+          choices: [
+            { v:'a', t:'(N.C. 2012)' },
+            { v:'b', t:'(2012)' },
+            { v:'c', t:'(N.C. Ct. App. 2012)' }
+          ],
+          answer:'b',
+          explain:'<span class="cite">N.C.</span> is the official reporter of North Carolina\'s <strong>highest court</strong>, so the court is implied. Just the year: <strong>(2012)</strong>.'
+        }
+      ]
+    },
+    {
+      id: 'b10-2',
+      rule: 'B10.2',
+      title: 'Short-form citation',
+      desc: 'When to use a case-name short form, and when to use id.',
+      questions: [
+        {
+          q: 'You have already cited Harlow v. Fitzgerald, 457 U.S. 800, 818 (1982) in full. Which is the correct short form on a later page reference?',
+          choices: [
+            { v:'a', t:'Harlow, 457 U.S. 820.' },
+            { v:'b', t:'Harlow at 820.' },
+            { v:'c', t:'<em>Harlow</em>, 457 U.S. at 820.' }
+          ],
+          answer:'c',
+          explain:'Short form is one party\'s name in italics, then the volume and reporter, then <strong>"at"</strong>, then the pinpoint. The case name is italicized; the rest is roman.'
+        },
+        {
+          q: 'You cite a case, then your very next citation is to a different page of the same case. What\'s the correct citation?',
+          choices: [
+            { v:'a', t:'<em>Id.</em> at 822.' },
+            { v:'b', t:'<em>Id.</em>, 457 U.S. at 822.' },
+            { v:'c', t:'Harlow, 457 U.S. at 822.' }
+          ],
+          answer:'a',
+          explain:'When the immediately preceding citation is the same source, use <em>id.</em> with the new pinpoint after "at": <strong><em>Id.</em> at 822.</strong>'
+        },
+        {
+          q: 'Your last citation was a string cite with three cases. Now you want to cite the same first case in the string. Can you use id.?',
+          choices: [
+            { v:'a', t:'Yes — id. refers to the first cite in the string.' },
+            { v:'b', t:'No — id. cannot follow a string cite.' },
+            { v:'c', t:'Yes, but only with a parenthetical naming the case.' }
+          ],
+          answer:'b',
+          explain:'<em>Id.</em> can only follow a citation to <strong>a single source</strong>. After a string cite, use a short form with the case name.'
+        }
+      ]
+    },
+    {
+      id: 't1-nc',
+      rule: 'T1 · North Carolina',
+      title: 'North Carolina authorities',
+      desc: 'Citing N.C. Supreme Court, N.C. Court of Appeals, and N.C. Gen. Stat.',
+      questions: [
+        {
+          q: 'Which is the correct full citation for a 2012 North Carolina Supreme Court case in the official reporter?',
+          choices: [
+            { v:'a', t:'<em>State v. Lawrence</em>, 365 N.C. 506 (N.C. 2012).' },
+            { v:'b', t:'<em>State v. Lawrence</em>, 365 N.C. 506 (2012).' },
+            { v:'c', t:'<em>State v. Lawrence</em>, 365 N.C. 506 (N.C. Sup. Ct. 2012).' }
+          ],
+          answer:'b',
+          explain:'<span class="cite">N.C.</span> is the official reporter of the state\'s highest court. The court is implied, so the parenthetical holds <strong>just the year</strong>.'
+        },
+        {
+          q: 'Which is correct for a 2015 North Carolina Court of Appeals case in the official reporter?',
+          choices: [
+            { v:'a', t:'<em>State v. Hill</em>, 240 N.C. App. 88 (2015).' },
+            { v:'b', t:'<em>State v. Hill</em>, 240 N.C. App. 88 (N.C. Ct. App. 2015).' },
+            { v:'c', t:'<em>State v. Hill</em>, 240 N.C. 88 (N.C. App. 2015).' }
+          ],
+          answer:'b',
+          explain:'<span class="cite">N.C. App.</span> is the reporter, but it doesn\'t identify the court the way <span class="cite">N.C.</span> does — so include <strong>(N.C. Ct. App. 2015)</strong> in the parenthetical.'
+        },
+        {
+          q: 'Which is the correct Bluebook citation form for a North Carolina statute?',
+          choices: [
+            { v:'a', t:'N.C.G.S. § 14-72 (2023).' },
+            { v:'b', t:'NC Gen Stat 14-72 (2023).' },
+            { v:'c', t:'N.C. Gen. Stat. § 14-72 (2023).' }
+          ],
+          answer:'c',
+          explain:'The Bluebook abbreviation is <strong>N.C. Gen. Stat.</strong> (with periods and spaces), the section symbol §, the section number, then a parenthetical with the year of the volume.'
+        },
+        {
+          q: 'You cite Chapter 14, Sections 72 and 73 of the N.C. General Statutes. Which is correct?',
+          choices: [
+            { v:'a', t:'N.C. Gen. Stat. § 14-72-73 (2023).' },
+            { v:'b', t:'N.C. Gen. Stat. §§ 14-72, 14-73 (2023).' },
+            { v:'c', t:'N.C. Gen. Stat. § 14-72 and 14-73 (2023).' }
+          ],
+          answer:'b',
+          explain:'Multiple sections take the <strong>double section symbol</strong> §§ and a comma-separated list.'
+        }
+      ]
+    },
+    {
+      id: 't6',
+      rule: 'T6',
+      title: 'Case-name and institutional-author abbreviations',
+      desc: 'Use the standard abbreviations, and notice the "first word" exception.',
+      questions: [
+        {
+          q: 'Which is the correct Table 6 abbreviation for "Association"?',
+          choices: [
+            { v:'a', t:'Asoc.' },
+            { v:'b', t:'Assoc.' },
+            { v:'c', t:'Ass’n' }
+          ],
+          answer:'c',
+          explain:'Table 6: <strong>Ass’n</strong> for "Association" — with an apostrophe, not a period or "Assoc."'
+        },
+        {
+          q: 'A party is "United States Department of Justice". Which abbreviates the words in case-name style correctly?',
+          choices: [
+            { v:'a', t:'United States Dep’t of Justice' },
+            { v:'b', t:'U.S. Dept. of Justice' },
+            { v:'c', t:'U.S. Dep’t of Just.' }
+          ],
+          answer:'a',
+          explain:'Don\'t abbreviate "United States" as a party. Apply Table 6 to "Department" → <strong>Dep’t</strong>. "Justice" is not on Table 6, so it stays spelled out.'
+        },
+        {
+          q: 'A party is "Federal Trade Commission". How does the name appear in a case citation?',
+          choices: [
+            { v:'a', t:'Fed. Trade Comm’n' },
+            { v:'b', t:'Federal Trade Comm’n' },
+            { v:'c', t:'F.T.C.' }
+          ],
+          answer:'b',
+          explain:'The first-word exception: don\'t abbreviate a Table 6 word when it\'s the <strong>first word</strong> of a party\'s name. So "Federal" stays, but "Commission" → <strong>Comm’n</strong>.'
+        },
+        {
+          q: 'Which of these is the correct Table 6 abbreviation for "International"?',
+          choices: [
+            { v:'a', t:'Int.' },
+            { v:'b', t:'Intl.' },
+            { v:'c', t:'Int’l' }
+          ],
+          answer:'c',
+          explain:'Table 6: <strong>Int’l</strong>. Similar contracted forms with apostrophes: Nat’l, Gov’t, Dep’t, Ass’n, Soc’y.'
+        }
+      ]
+    }
+  ];
+
+  // ===== State =====
+  let currentTopicId = null;
+
+  // ===== Rendering =====
+  function renderTopicGrid() {
+    const grid = document.getElementById('topic-grid');
+    grid.innerHTML = TOPICS.map(t => `
+      <button class="topic-tile ${t.id === currentTopicId ? 'is-active' : ''}" onclick="openTopic('${t.id}')">
+        <div class="topic-tile__num">${t.rule}</div>
+        <div class="topic-tile__title">${t.title}</div>
+        <div class="topic-tile__body">${t.desc}</div>
+      </button>
+    `).join('');
+  }
+
+  function openTopic(id) {
+    currentTopicId = id;
+    const topic = TOPICS.find(t => t.id === id);
+    if (!topic) return;
+    renderTopicGrid();
+    document.getElementById('pane-rule').textContent = topic.rule;
+    document.getElementById('pane-title').textContent = topic.title;
+    document.getElementById('pane-desc').textContent = topic.desc;
+    document.getElementById('pane-progress').textContent = `${topic.questions.length} questions`;
+
+    const questionsEl = document.getElementById('questions');
+    questionsEl.innerHTML = topic.questions.map((q, idx) => `
+      <div class="exercise" data-q="${idx}">
+        <div class="exercise__head">
+          <span class="exercise__label">Question ${idx + 1} of ${topic.questions.length}</span>
+        </div>
+        <div class="exercise__q">${q.q}</div>
+        <div class="exercise__choices">
+          ${q.choices.map(c => `
+            <label class="choice">
+              <input type="radio" name="${id}-q${idx}" value="${c.v}"/>
+              <span>${c.t}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="exercise__actions">
+          <button class="btn btn--primary btn--sm" onclick="checkPracticeQ('${id}', ${idx})">Check answer</button>
+        </div>
+        <div class="exercise__feedback" id="fb-${id}-${idx}"></div>
+      </div>
+    `).join('');
+
+    document.getElementById('practice-pane').classList.remove('hidden');
+    document.getElementById('practice-pane').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function checkPracticeQ(topicId, qIdx) {
+    const topic = TOPICS.find(t => t.id === topicId);
+    const question = topic.questions[qIdx];
+    const exEl = document.querySelector(`[data-q="${qIdx}"]`);
+    if (!exEl) return;
+    const radios = exEl.querySelectorAll('input[type="radio"]');
+    let picked = null;
+    radios.forEach(r => { if (r.checked) picked = r; });
+    const fb = document.getElementById(`fb-${topicId}-${qIdx}`);
+    exEl.querySelectorAll('.choice').forEach(c => c.classList.remove('is-correct','is-wrong'));
+    fb.classList.remove('show','is-correct','is-wrong');
+
+    if (!picked) {
+      fb.innerHTML = '<strong>Pick an answer first</strong>, then hit Check answer.';
+      fb.classList.add('show','is-wrong');
+      return;
+    }
+    radios.forEach(r => {
+      if (r.value === question.answer) r.parentElement.classList.add('is-correct');
+    });
+    if (picked.value === question.answer) {
+      fb.innerHTML = '<strong>Correct.</strong> ' + question.explain;
+      fb.classList.add('show','is-correct');
+    } else {
+      picked.parentElement.classList.add('is-wrong');
+      fb.innerHTML = '<strong>Not quite.</strong> ' + question.explain;
+      fb.classList.add('show','is-wrong');
+    }
+  }
+
+  function resetTopic() {
+    if (currentTopicId) openTopic(currentTopicId);
+  }
+
+  // ===== Initial render =====
+  renderTopicGrid();
+</script>
+
+</body>
+</html>

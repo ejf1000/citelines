@@ -1,0 +1,661 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Learn the Citeline rules — Citelines</title>
+  <link rel="icon" type="image/svg+xml" href="./design-system/assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="./site.css"/>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__row">
+    <a href="./index.html" class="nav__brand">
+      <img src="./design-system/assets/logo-wordmark.svg" alt="Citelines"/>
+      <span class="nav__brand-sub">Learn the Bluebook</span>
+    </a>
+    <nav class="nav__links">
+      <a href="./index.html">Home</a>
+      <a href="./learn.html" class="is-active">Learn</a>
+      <a href="./practice.html">Practice</a>
+      <a href="./assessment.html">Assessments</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: var(--space-12) 0 var(--space-6); border-bottom: 1px solid var(--border-hairline); background: linear-gradient(180deg, var(--paper-50), var(--paper-100));">
+  <div class="container">
+    <div class="hero__eyebrow">Lessons · the blue pages</div>
+    <h1 style="max-width: 22ch;">Learn the Citeline rules, one at a time.</h1>
+    <p class="hero__lede" style="margin-top: var(--space-4); max-width: 64ch;">Each lesson explains <em>what</em> the rule says and <em>why</em> it says it. We'll show the anatomy of a real citation, point out the parts that trip people up, and let you try a few yourself before moving on.</p>
+  </div>
+</section>
+
+<div class="container">
+  <div class="lesson-layout">
+
+    <aside class="lesson-toc">
+      <div class="lesson-toc__label">In this guide</div>
+      <a href="#b1-1">B1.1 · Citation sentences</a>
+      <a href="#b1-2">B1.2 · Signals</a>
+      <a href="#b1-3">B1.3 · Parentheticals</a>
+      <a href="#b5-3">B5.3 · Modifying quotations</a>
+      <a href="#b10-1">B10.1 · Full citations</a>
+      <a href="#b10-1-1">B10.1.1 · Case names</a>
+      <a href="#b10-1-2">B10.1.2 · Reporters &amp; pin cites</a>
+      <a href="#b10-1-3">B10.1.3 · Court &amp; year</a>
+      <a href="#b10-2">B10.2 · Short forms</a>
+      <a href="#t1-nc">T1 · North Carolina</a>
+      <a href="#t6">T6 · Case-name abbreviations</a>
+    </aside>
+
+    <main>
+
+      <!-- =========================== B1.1 =========================== -->
+      <article class="lesson" id="b1-1">
+        <span class="lesson__rule">B1.1</span>
+        <h2 class="lesson__title">Citation sentences and citation clauses</h2>
+        <p class="lesson__lede">A citation is its own little sentence — or a clause tucked inside one. Knowing which is which tells you where to put periods, commas, and how many citations you can stack.</p>
+
+        <h3>What the rule does</h3>
+        <p>Every time you state a proposition from a source, you cite the source. The Bluebook gives you two ways to attach the citation to your text:</p>
+
+        <h4>Citation sentence</h4>
+        <p>A <strong>citation sentence</strong> stands on its own, immediately after the sentence whose proposition it supports. It begins with a capital letter, ends with a period, and can hold multiple citations separated by semicolons.</p>
+        <div class="example">
+          <div class="example__label">Citation sentence</div>
+          <div class="example__cite">The court rejected the qualified immunity defense. <em>Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982); <em>Pearson v. Callahan</em>, 555 U.S. 223, 236 (2009).</div>
+        </div>
+
+        <h4>Citation clause</h4>
+        <p>A <strong>citation clause</strong> supports only part of a sentence. It is set off by commas (or sometimes parentheses), is <em>not</em> capitalized as if starting a sentence, and does not get its own end-of-sentence period.</p>
+        <div class="example">
+          <div class="example__label">Citation clause</div>
+          <div class="example__cite">The qualified immunity doctrine, <em>see Harlow v. Fitzgerald</em>, 457 U.S. 800 (1982), shields officials performing discretionary functions.</div>
+        </div>
+
+        <h3>Why the rule exists</h3>
+        <p>Readers need to know exactly which proposition a citation supports. A citation <em>sentence</em> supports the whole previous sentence. A citation <em>clause</em> supports only the proposition next to it. This is how the writer is precise without having to spell it out in prose.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li><strong>Treating a citation clause like a sentence.</strong> Don't put a period after a citation clause that is mid-sentence — use commas.</li>
+          <li><strong>Stacking unrelated citations into one sentence.</strong> If two citations support different propositions, use two citation clauses (or rewrite the sentence).</li>
+          <li><strong>Forgetting the closing period.</strong> A citation sentence ends with a period, just like any other sentence.</li>
+        </ul>
+
+        <h3>Quick check</h3>
+        <div class="exercise" data-ex="ex1">
+          <div class="exercise__head">
+            <span class="exercise__label">Try it</span>
+          </div>
+          <div class="exercise__q">
+            A writer wants the citation to support <strong>only the second half</strong> of the following sentence: "The plaintiff did not appeal, but the defendant did, <em>see Smith v. Jones</em>, 100 F.3d 1 (4th Cir. 1999)." Is that better written as a citation sentence or a citation clause?
+          </div>
+          <div class="exercise__choices">
+            <label class="choice"><input type="radio" name="ex1" value="a"/><span>A citation sentence after the full sentence.</span></label>
+            <label class="choice"><input type="radio" name="ex1" value="b"/><span>A citation clause set off by commas.</span></label>
+            <label class="choice"><input type="radio" name="ex1" value="c"/><span>Either is fine; the rule is silent.</span></label>
+          </div>
+          <div class="exercise__actions">
+            <button class="btn btn--primary btn--sm" onclick="checkChoice('ex1','b','A citation clause is correct because the citation supports <em>only part</em> of the sentence — the defendant\\'s appeal — not the whole proposition. Citation sentences support whole sentences; citation clauses support clauses.')">Check answer</button>
+          </div>
+          <div class="exercise__feedback" id="fb-ex1"></div>
+        </div>
+
+      </article>
+
+      <!-- =========================== B1.2 =========================== -->
+      <article class="lesson" id="b1-2">
+        <span class="lesson__rule">B1.2</span>
+        <h2 class="lesson__title">Introductory signals</h2>
+        <p class="lesson__lede">A signal is a word or phrase before the citation that tells the reader exactly how the source supports your point. Pick the right one and you save the reader a lookup.</p>
+
+        <h3>The signals you need first</h3>
+
+        <h4>No signal</h4>
+        <p>No signal at all means the source <strong>directly states</strong> the proposition, or you have just quoted from it.</p>
+        <div class="example">
+          <div class="example__cite">Officers are entitled to qualified immunity unless they violate clearly established law. <em>Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982).</div>
+        </div>
+
+        <h4><em>See</em></h4>
+        <p>Use <em>see</em> when the source supports the proposition <strong>implicitly</strong> or in a one-step-removed way. The source clearly leads to your point, but doesn't state it.</p>
+        <div class="example">
+          <div class="example__cite"><em>See Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982).</div>
+        </div>
+
+        <h4><em>See also</em></h4>
+        <p>Adds <strong>further support</strong> that is related to — but distinct from — what you have already cited. Almost always paired with a parenthetical explaining what it adds.</p>
+
+        <h4><em>Cf.</em></h4>
+        <p>The source supports the point by <strong>analogy</strong>. It's about something else, but the reasoning maps onto your proposition. <em>Cf.</em> almost always needs an explanatory parenthetical.</p>
+
+        <h4><em>Compare … with …</em></h4>
+        <p>Asks the reader to look at two (or more) authorities <strong>side-by-side</strong> because the comparison itself supports the point.</p>
+
+        <h4>Contradicting signals: <em>but see</em>, <em>but cf.</em></h4>
+        <p>The mirror images. <em>But see</em> for sources that <strong>contradict</strong> the proposition directly; <em>but cf.</em> for sources that contradict it by analogy.</p>
+
+        <h4><em>See generally</em></h4>
+        <p>Background reading. Use sparingly, and always with a parenthetical, because the reader needs to know <em>why</em> the source is useful background.</p>
+
+        <h3>Order and punctuation</h3>
+        <p>If you use more than one signal, the Bluebook orders them — supportive signals first, comparison signals next, contradictory signals next, and background last. Signals are <strong>italicized</strong>, and a comma sets them off only when the signal is a phrase like <em>see, e.g.,</em>. Otherwise no comma after the signal.</p>
+
+        <h3>Why the rule exists</h3>
+        <p>Signals turn citations from a wall of cases into a small reading map. A careful reader can scan signals and instantly see which authorities are on point, which are by analogy, and which cut the other way.</p>
+
+        <h3>Quick check</h3>
+        <div class="exercise" data-ex="ex2">
+          <div class="exercise__head">
+            <span class="exercise__label">Try it</span>
+          </div>
+          <div class="exercise__q">
+            Your sentence says: "Most circuits require a showing of bad faith." You then want to cite a Sixth Circuit case that found <strong>no</strong> bad-faith requirement. Which signal best precedes that citation?
+          </div>
+          <div class="exercise__choices">
+            <label class="choice"><input type="radio" name="ex2" value="a"/><span><em>See</em></span></label>
+            <label class="choice"><input type="radio" name="ex2" value="b"/><span><em>See also</em></span></label>
+            <label class="choice"><input type="radio" name="ex2" value="c"/><span><em>But see</em></span></label>
+            <label class="choice"><input type="radio" name="ex2" value="d"/><span><em>Cf.</em></span></label>
+          </div>
+          <div class="exercise__actions">
+            <button class="btn btn--primary btn--sm" onclick="checkChoice('ex2','c','<em>But see</em> introduces a source that <strong>contradicts</strong> the proposition directly — exactly what a circuit that found <em>no</em> bad-faith requirement does. <em>Cf.</em> would mean the source contradicts by analogy; here, the source contradicts on point.')">Check answer</button>
+          </div>
+          <div class="exercise__feedback" id="fb-ex2"></div>
+        </div>
+
+      </article>
+
+      <!-- =========================== B1.3 =========================== -->
+      <article class="lesson" id="b1-3">
+        <span class="lesson__rule">B1.3</span>
+        <h2 class="lesson__title">Explanatory parentheticals</h2>
+        <p class="lesson__lede">A parenthetical is the short phrase in parentheses after a citation that tells the reader what the case did or said. They are how you make a string cite earn its space.</p>
+
+        <h3>What a parenthetical does</h3>
+        <p>Parentheticals appear at the very end of the citation, after the year, and they generally begin with a <strong>present-participle</strong> verb (<em>holding</em>, <em>noting</em>, <em>finding</em>, <em>rejecting</em>) — never a capital letter, never a period.</p>
+
+        <div class="example example--good">
+          <div class="example__label">Good</div>
+          <div class="example__cite"><em>Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982) (holding that government officials are shielded from liability unless they violate clearly established law).</div>
+        </div>
+
+        <div class="example example--bad">
+          <div class="example__label">Common error</div>
+          <div class="example__cite"><em>Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982) (The Court held that government officials are shielded from liability.).</div>
+        </div>
+
+        <h3>When you need one</h3>
+        <p>A parenthetical is <strong>strongly preferred</strong> after <em>see also</em>, <em>cf.</em>, <em>compare</em>, <em>but cf.</em>, and <em>see generally</em>. After no signal or after <em>see</em>, parentheticals are optional but often helpful.</p>
+
+        <h3>How to write a good one</h3>
+        <ul>
+          <li>Start with a verb in <em>-ing</em>: <em>holding</em>, <em>concluding</em>, <em>rejecting</em>, <em>finding</em>.</li>
+          <li>Keep it short — one phrase that tells the reader why this case is here.</li>
+          <li>If you must quote, keep it brief and inside the parenthetical's own quotation marks.</li>
+          <li>If the parenthetical is a complete quoted sentence, it may begin with a capital and end with a period inside the parentheses. This is the exception, not the rule.</li>
+        </ul>
+
+        <h3>Why the rule exists</h3>
+        <p>A reader will not chase every citation. A good parenthetical lets a busy reader trust your string cite without lifting a finger — and lets a careful reader skip straight to the cases that look promising.</p>
+
+      </article>
+
+      <!-- =========================== B5.3 =========================== -->
+      <article class="lesson" id="b5-3">
+        <span class="lesson__rule">B5.3</span>
+        <h2 class="lesson__title">Modifying quotations and citations for clarity</h2>
+        <p class="lesson__lede">Sometimes you have to change a quotation — to fit grammar, to drop irrelevant words, or to highlight a part. The Bluebook gives you a small set of marks that show the reader exactly what you changed.</p>
+
+        <h3>Brackets for substitutions</h3>
+        <p>Use square brackets when you change a letter, word, or short phrase inside the quotation — to fit your sentence, to clarify a pronoun, or to swap tense.</p>
+        <div class="example">
+          <div class="example__label">Original</div>
+          <div class="example__cite">"The defendant was negligent in his maintenance of the property."</div>
+        </div>
+        <div class="example">
+          <div class="example__label">As quoted in your brief</div>
+          <div class="example__cite">The court found that the defendant "[was] negligent in [the] maintenance of the property."</div>
+        </div>
+
+        <h3>Ellipses for omissions</h3>
+        <p>An ellipsis ( <span class="cite">. . .</span> — three periods, each separated by a space) shows the reader you dropped one or more words from the middle of a quotation. Don't use an ellipsis at the start of a quotation, and use it at the end only when the omitted text would have completed the quoted sentence.</p>
+        <div class="example">
+          <div class="example__cite">The court reasoned that "the defendant . . . failed to take reasonable steps to prevent the harm."</div>
+        </div>
+
+        <h3>Emphasis</h3>
+        <p>If you italicize part of a quotation that wasn't italicized in the original, add a parenthetical at the end of the citation: <span class="cite">(emphasis added)</span>. If the emphasis was already in the original, add <span class="cite">(emphasis in original)</span>. If a previous citing court added the emphasis, use <span class="cite">(alteration in original)</span> or attribute it appropriately.</p>
+        <div class="example">
+          <div class="example__cite">The court emphasized that "the defendant <em>knew</em> of the danger before the accident." <em>Smith v. Jones</em>, 100 F.3d 1, 4 (4th Cir. 1999) (emphasis added).</div>
+        </div>
+
+        <h3>Citations within quotations</h3>
+        <p>If the original source contained an internal citation that you are dropping, use <span class="cite">(citation omitted)</span>. If you are dropping internal quotation marks, use <span class="cite">(internal quotation marks omitted)</span>. When you keep them, the Bluebook uses single quotation marks inside doubles.</p>
+
+        <h3>Why the rule exists</h3>
+        <p>A quotation is evidence. Anything you change has to be visible at a glance, so a reader can decide whether your alteration was fair. Brackets, ellipses, and these short parentheticals are the audit trail.</p>
+
+        <h3>Quick check</h3>
+        <div class="exercise" data-ex="ex3">
+          <div class="exercise__head">
+            <span class="exercise__label">Try it</span>
+          </div>
+          <div class="exercise__q">
+            You want to italicize the word "knowingly" in a quoted sentence to draw the reader's attention to the mental-state requirement. The word was not italicized in the original opinion. What parenthetical, if any, do you add at the end of the citation?
+          </div>
+          <div class="exercise__choices">
+            <label class="choice"><input type="radio" name="ex3" value="a"/><span><span class="cite">(emphasis in original)</span></span></label>
+            <label class="choice"><input type="radio" name="ex3" value="b"/><span><span class="cite">(emphasis added)</span></span></label>
+            <label class="choice"><input type="radio" name="ex3" value="c"/><span><span class="cite">(alteration in original)</span></span></label>
+            <label class="choice"><input type="radio" name="ex3" value="d"/><span>No parenthetical is needed.</span></label>
+          </div>
+          <div class="exercise__actions">
+            <button class="btn btn--primary btn--sm" onclick="checkChoice('ex3','b','<span class=\\'answer\\'>(emphasis added)</span> tells the reader the italics are your work, not the original court\\'s. Without it, the reader can\\'t tell whether the emphasis is yours — which would be misleading.')">Check answer</button>
+          </div>
+          <div class="exercise__feedback" id="fb-ex3"></div>
+        </div>
+
+      </article>
+
+      <!-- =========================== B10.1 =========================== -->
+      <article class="lesson" id="b10-1">
+        <span class="lesson__rule">B10.1</span>
+        <h2 class="lesson__title">The full case citation</h2>
+        <p class="lesson__lede">Every full case citation is built from the same five parts. Once you can name them, the rest of B10 is just detail about each piece.</p>
+
+        <h3>Anatomy</h3>
+        <div class="anatomy">
+          <div class="anatomy__line">
+            <span class="pt pt-1"><em>Brown v. Board of Education</em></span>,
+            <span class="pt pt-2">347 U.S. 483</span>,
+            <span class="pt pt-3">495</span>
+            <span class="pt pt-4">(1954)</span>.
+          </div>
+          <div class="anatomy__legend">
+            <div class="row"><span class="dot dot--1"></span><div><strong>Case name</strong> — italicized, party names separated by <em>v.</em></div></div>
+            <div class="row"><span class="dot dot--2"></span><div><strong>Reporter citation</strong> — volume, reporter abbreviation, first page</div></div>
+            <div class="row"><span class="dot dot--3"></span><div><strong>Pinpoint page</strong> — the specific page being cited</div></div>
+            <div class="row"><span class="dot dot--4"></span><div><strong>Court &amp; year</strong> — in parentheses; the court is omitted if the reporter makes it obvious</div></div>
+          </div>
+        </div>
+
+        <h3>The five parts in order</h3>
+        <ol>
+          <li><strong>Case name</strong> — see B10.1.1.</li>
+          <li><strong>Reporter citation</strong> — volume number, reporter abbreviation, first page of the case. See B10.1.2.</li>
+          <li><strong>Pinpoint page(s)</strong> — the specific page(s) you are relying on. Always include one when you state a specific proposition.</li>
+          <li><strong>Parenthetical with court and year</strong> — see B10.1.3.</li>
+          <li><strong>(Optional)</strong> Weight-of-authority or explanatory parenthetical, then subsequent history.</li>
+        </ol>
+
+        <p>Lessons B10.1.1 through B10.1.3 take each part one at a time.</p>
+      </article>
+
+      <!-- =========================== B10.1.1 =========================== -->
+      <article class="lesson" id="b10-1-1">
+        <span class="lesson__rule">B10.1.1</span>
+        <h2 class="lesson__title">Case names</h2>
+        <p class="lesson__lede">Italicize the case name; use the parties' names as they appear at the top of the opinion, then trim, abbreviate, and tidy according to a small set of rules.</p>
+
+        <h3>Core rules</h3>
+        <ul>
+          <li><strong>Italicize the entire case name</strong>, including the <em>v.</em> The comma after the case name is <em>not</em> italicized.</li>
+          <li><strong>Use only the first party on each side.</strong> If a side lists three plaintiffs, you cite the first one only.</li>
+          <li><strong>Drop "et al.", "and others", and most procedural phrases</strong> (e.g., "individually and on behalf of all others similarly situated"). Keep "ex rel." and "in re" when they are part of the official name.</li>
+          <li><strong>Use "v." not "vs."</strong> Always lowercase, no italics on the period.</li>
+          <li><strong>For individuals, use only the last name.</strong> "John Q. Smith" becomes "Smith". For businesses, use the full name as listed, then apply Table 6 abbreviations.</li>
+        </ul>
+
+        <h3>Abbreviations in case names</h3>
+        <p>Case names use the abbreviations in <strong>Table 6</strong> (covered later in this guide). Common ones: "Corporation" becomes <span class="cite">Corp.</span>, "Company" becomes <span class="cite">Co.</span>, "United States" stays "United States" when it is a party, "Brothers" becomes <span class="cite">Bros.</span>, "Department" becomes <span class="cite">Dep't</span>.</p>
+
+        <h3>Geographic terms</h3>
+        <p>State, city, and country names are abbreviated per Table 10, but with one important twist: <strong>do not</strong> abbreviate "United States" when it is a party — write it out.</p>
+
+        <h3>"In re" and "Ex parte"</h3>
+        <p>Some cases have no opposing party (bankruptcies, juvenile cases, attorney discipline). Cite them with the procedural phrase italicized along with the name: <em>In re Marriage of Smith</em>, <em>Ex parte Jones</em>.</p>
+
+        <h3>Why the rule exists</h3>
+        <p>Case names appear in tables of authorities, search indexes, and across every brief in a case. Consistent treatment makes opinions findable and brief tables clean. The trimming rules keep citations short without losing the case's identity.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Italicizing the comma after the case name. Don't.</li>
+          <li>Spelling out "v." (it's an abbreviation, not the Latin <em>versus</em>).</li>
+          <li>Keeping "et al." in the case name.</li>
+          <li>Forgetting to abbreviate Table 6 words like <span class="cite">Corp.</span> and <span class="cite">Co.</span></li>
+        </ul>
+      </article>
+
+      <!-- =========================== B10.1.2 =========================== -->
+      <article class="lesson" id="b10-1-2">
+        <span class="lesson__rule">B10.1.2</span>
+        <h2 class="lesson__title">Reporters and pinpoint pages</h2>
+        <p class="lesson__lede">The middle of a case citation tells the reader where the case lives. Volume, reporter, first page, pinpoint — in that order, with no period after the volume number.</p>
+
+        <h3>The reporter sandwich</h3>
+        <div class="anatomy">
+          <div class="anatomy__line">
+            347
+            <span class="pt pt-1">U.S.</span>
+            483, 495
+          </div>
+          <div class="anatomy__legend">
+            <div class="row"><span class="dot dot--1"></span><div><strong>Reporter</strong> — the abbreviation for the published series</div></div>
+          </div>
+        </div>
+        <p>Format: <strong>volume &middot; reporter abbreviation &middot; first page</strong>, then a comma, then any pinpoint pages.</p>
+
+        <h3>Which reporter to cite</h3>
+        <p>For most cases, cite the <strong>official reporter</strong> if one exists. Otherwise, use the regional or West reporter. Federal cases:</p>
+        <ul>
+          <li><strong>U.S. Supreme Court</strong> — cite <span class="cite">U.S.</span> (official). If not yet in U.S., use <span class="cite">S. Ct.</span>, then <span class="cite">L. Ed.</span> as a last resort.</li>
+          <li><strong>Federal courts of appeals</strong> — <span class="cite">F.</span>, <span class="cite">F.2d</span>, <span class="cite">F.3d</span>, or <span class="cite">F.4th</span>, depending on year.</li>
+          <li><strong>Federal district courts</strong> — <span class="cite">F. Supp.</span>, <span class="cite">F. Supp. 2d</span>, <span class="cite">F. Supp. 3d</span>.</li>
+        </ul>
+
+        <h3>Pinpoint pages</h3>
+        <p>The pinpoint page is the page where the specific material you are citing appears. <strong>You almost always need one.</strong> A citation with only the first page tells the reader "this case is somewhere on these pages"; a pinpoint tells them "look here".</p>
+        <ul>
+          <li>Add the pinpoint after the first page, separated by a comma: <span class="cite">347 U.S. 483, 495</span>.</li>
+          <li>For a range of pages, use a hyphen and drop repeated digits: <span class="cite">483-89</span> (not <span class="cite">483-489</span>).</li>
+          <li>For multiple non-consecutive pinpoints, list them comma-separated: <span class="cite">483, 489, 495</span>.</li>
+          <li>If you are citing the first page itself, repeat it: <span class="cite">347 U.S. 483, 483</span>.</li>
+        </ul>
+
+        <h3>Spacing inside reporter abbreviations</h3>
+        <p>This trips everyone up. Bluebook spacing: <strong>close up</strong> adjacent single capital letters (with or without periods), but insert a space between a single letter and a longer abbreviation.</p>
+        <ul>
+          <li><span class="cite">U.S.</span> — two single capitals, closed up</li>
+          <li><span class="cite">F.3d</span> — closed up (the "3d" is treated as part of the unit)</li>
+          <li><span class="cite">F. Supp.</span> — space, because "Supp." is longer than one letter</li>
+          <li><span class="cite">S. Ct.</span> — space, same reason</li>
+        </ul>
+
+        <h3>Why the rule exists</h3>
+        <p>A reporter citation has to take a reader from "I trust your source" to "here it is on a shelf" with no ambiguity. The order — volume, reporter, page — matches how reporters are physically organized: pull the reporter, find the volume, open to the page.</p>
+
+      </article>
+
+      <!-- =========================== B10.1.3 =========================== -->
+      <article class="lesson" id="b10-1-3">
+        <span class="lesson__rule">B10.1.3</span>
+        <h2 class="lesson__title">Court and year of decision</h2>
+        <p class="lesson__lede">The last parenthetical of a full citation tells the reader which court decided the case and when. The rule is short, but easy to get wrong because the court is sometimes left out.</p>
+
+        <h3>The rule, in one sentence</h3>
+        <p>Put the deciding court's abbreviation and the year of decision in parentheses at the end of the citation. <strong>Omit the court</strong> if the reporter already makes it clear.</p>
+
+        <h3>When you omit the court</h3>
+        <ul>
+          <li><strong>U.S. Supreme Court</strong> — citing <span class="cite">U.S.</span>, <span class="cite">S. Ct.</span>, or <span class="cite">L. Ed.</span> implies the Court. Just give the year: <span class="cite">(1982)</span>.</li>
+          <li><strong>A state's highest court</strong> — if the reporter is the state's official reporter (e.g., <span class="cite">N.C.</span>), the court is obvious. Just the year: <span class="cite">(2010)</span>.</li>
+        </ul>
+
+        <h3>When you include the court</h3>
+        <ul>
+          <li><strong>Federal courts of appeals</strong> — always show the circuit: <span class="cite">(4th Cir. 2018)</span>.</li>
+          <li><strong>Federal district courts</strong> — always show the district: <span class="cite">(E.D.N.C. 2020)</span>, <span class="cite">(S.D.N.Y. 2014)</span>.</li>
+          <li><strong>State intermediate appellate courts</strong> — show the court: <span class="cite">(N.C. Ct. App. 2015)</span>.</li>
+          <li><strong>Regional reporters</strong> — if the case is in a regional reporter (<span class="cite">S.E.</span>, <span class="cite">S.E.2d</span>), include the state and court because the reporter covers many states.</li>
+        </ul>
+
+        <h3>The year</h3>
+        <p>The year is the year of decision. For cases that span years (argued one year, decided the next), use the decision year. The year sits at the end of the parenthetical, separated from the court by a space (no comma).</p>
+
+        <h3>Examples</h3>
+        <div class="example">
+          <div class="example__cite">
+            <em>Harlow v. Fitzgerald</em>, 457 U.S. 800 (1982).<br>
+            <em>Henson v. Santander Consumer USA Inc.</em>, 817 F.3d 131 (4th Cir. 2016).<br>
+            <em>State v. Smith</em>, 362 N.C. 583 (2008).<br>
+            <em>State v. Jones</em>, 240 N.C. App. 88 (2015).<br>
+            <em>United States v. Garcia</em>, 412 F. Supp. 3d 580 (E.D.N.C. 2019).
+          </div>
+        </div>
+
+        <h3>Why the rule exists</h3>
+        <p>Knowing the court tells the reader the weight of the authority. A Fourth Circuit decision and a Western District of North Carolina decision are not the same. Omitting the court when the reporter already names it keeps the citation short without losing that information.</p>
+
+      </article>
+
+      <!-- =========================== B10.2 =========================== -->
+      <article class="lesson" id="b10-2">
+        <span class="lesson__rule">B10.2</span>
+        <h2 class="lesson__title">Short-form citation</h2>
+        <p class="lesson__lede">After you've cited a case in full once, you can use a short form. Two patterns: the case-name short form, and <em>id.</em>.</p>
+
+        <h3>The case-name short form</h3>
+        <p>After a full citation, you may use a shortened form on subsequent references. The standard short form is: <strong>one party's name</strong> (italicized), then the volume and reporter abbreviation, <strong>"at"</strong>, then the pinpoint page.</p>
+        <div class="example">
+          <div class="example__label">First (full) cite</div>
+          <div class="example__cite"><em>Harlow v. Fitzgerald</em>, 457 U.S. 800, 818 (1982).</div>
+          <div class="example__label" style="margin-top: var(--space-3);">Later (short) cite</div>
+          <div class="example__cite"><em>Harlow</em>, 457 U.S. at 820.</div>
+        </div>
+        <ul>
+          <li>Use the <strong>more distinctive</strong> party name. If the plaintiff is the government, the defendant's name is usually more useful: <em>Smith</em>, not <em>United States</em>.</li>
+          <li>Drop the year, the court, and the first page. Keep the volume, reporter, and pinpoint.</li>
+          <li>Italicize the case name (one party) — and only the case name.</li>
+        </ul>
+
+        <h3><em>Id.</em></h3>
+        <p><em>Id.</em> means "the same source as the one I just cited". Use it only when the immediately preceding citation refers to a single source.</p>
+        <ul>
+          <li><strong>Same page:</strong> <em>Id.</em> — that's it.</li>
+          <li><strong>Different page:</strong> <em>Id.</em> at 822.</li>
+          <li>The period after <em>id.</em> is part of the abbreviation; the entire word and period are italicized.</li>
+          <li><strong>Don't use <em>id.</em></strong> after a string cite (more than one source), or when something in between would confuse the reader.</li>
+        </ul>
+
+        <h3>When to drop back to a full citation</h3>
+        <p>If you haven't cited the case in the last <strong>five footnotes</strong> (or, in brief-writing practice, anywhere the reader might have lost track), use the full citation again — or at least include enough detail that the reader can find the case without scrolling.</p>
+
+        <h3>Why the rule exists</h3>
+        <p>Once you have introduced a case, repeating the full citation every time clutters the prose. The short form keeps the reading flow; <em>id.</em> goes a step further and tells the reader "still talking about the same source" without rewriting it.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Forgetting the word <strong>"at"</strong> in the short form. <span class="cite">Harlow, 457 U.S. 820</span> is wrong — it should be <span class="cite">Harlow, 457 U.S. at 820</span>.</li>
+          <li>Using <em>id.</em> after a string cite.</li>
+          <li>Italicizing only "Id" and not the period — italicize both.</li>
+        </ul>
+
+      </article>
+
+      <!-- =========================== T1 - NC =========================== -->
+      <article class="lesson" id="t1-nc">
+        <span class="lesson__rule">T1 · North Carolina</span>
+        <h2 class="lesson__title">Citing North Carolina authorities</h2>
+        <p class="lesson__lede">North Carolina has its own reporters and its own statutory compilation. Table 1 tells you what abbreviations and parentheticals to use for each.</p>
+
+        <h3>The three sources you'll see most</h3>
+
+        <h4>North Carolina Supreme Court</h4>
+        <p>Cite to <span class="cite">N.C.</span> — the official North Carolina Reports. Because this reporter is the state's <strong>highest-court</strong> official reporter, you do <em>not</em> include the court in the parenthetical. Just the year.</p>
+        <div class="example">
+          <div class="example__cite"><em>State v. Lawrence</em>, 365 N.C. 506, 510 (2012).</div>
+        </div>
+        <p>If a parallel regional citation is required (sometimes by local rule), add <span class="cite">S.E.2d</span> after the official cite: <em>State v. Lawrence</em>, 365 N.C. 506, 723 S.E.2d 326 (2012).</p>
+
+        <h4>North Carolina Court of Appeals</h4>
+        <p>The intermediate appellate court. Cite to <span class="cite">N.C. App.</span> (official reporter, the North Carolina Court of Appeals Reports). Because the reporter doesn't tell the reader which court decided the case on its own, include <span class="cite">N.C. Ct. App.</span> in the parenthetical along with the year.</p>
+        <div class="example">
+          <div class="example__cite"><em>State v. Hill</em>, 240 N.C. App. 88, 92 (N.C. Ct. App. 2015).</div>
+        </div>
+        <p>Pay attention to the spelling: <span class="cite">N.C. App.</span> is the <em>reporter</em>; <span class="cite">N.C. Ct. App.</span> is the <em>court abbreviation</em>.</p>
+
+        <h4>North Carolina General Statutes</h4>
+        <p>Cite the official compilation <span class="cite">N.C. Gen. Stat.</span>. The standard form is the section symbol, the section number, and a parenthetical with the year of the volume or supplement you used.</p>
+        <div class="example">
+          <div class="example__cite">N.C. Gen. Stat. § 14-72(a) (2023).</div>
+        </div>
+        <ul>
+          <li>Use the section symbol <span class="cite">§</span> for one section, <span class="cite">§§</span> for a range or list.</li>
+          <li>Cite by chapter and section: <span class="cite">§ 14-72</span> means Chapter 14, Section 72.</li>
+          <li>The year is the year of the bound volume; if the section appears only in a supplement, cite <span class="cite">(Supp. 2023)</span>.</li>
+        </ul>
+
+        <h3>Why these rules exist</h3>
+        <p>Every jurisdiction has its own reporter system. Table 1 standardizes the abbreviations so a brief filed in California can cite a North Carolina case without confusion. The rule "omit the court when the reporter makes it obvious" plays out here in two different ways — <span class="cite">N.C.</span> omits the court, but <span class="cite">N.C. App.</span> requires the court abbreviation in the parenthetical.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Adding "(N.C. 2012)" to an <span class="cite">N.C.</span> cite — the reporter already implies the court. Just the year.</li>
+          <li>Confusing <span class="cite">N.C. App.</span> (the reporter) with <span class="cite">N.C. Ct. App.</span> (the court in the parenthetical).</li>
+          <li>Writing <span class="cite">N.C.G.S.</span> instead of <span class="cite">N.C. Gen. Stat.</span> The Bluebook prefers <span class="cite">N.C. Gen. Stat.</span></li>
+          <li>Omitting the year on a statute. Statutes change; the year tells the reader which version you used.</li>
+        </ul>
+
+      </article>
+
+      <!-- =========================== T6 =========================== -->
+      <article class="lesson" id="t6">
+        <span class="lesson__rule">T6</span>
+        <h2 class="lesson__title">Case-name and institutional-author abbreviations</h2>
+        <p class="lesson__lede">Table 6 is a short list of words that you abbreviate in case names (and in the names of institutional authors). Memorize the common ones; look up the rest.</p>
+
+        <h3>How it works</h3>
+        <p>When a Table-6 word appears in a case name, you abbreviate it. The same word in your prose stays spelled out. Words used as the <em>first</em> word of a party's name are <strong>not</strong> abbreviated unless the abbreviation is so common it would be more recognizable.</p>
+
+        <h3>The ones you'll see constantly</h3>
+        <div class="anatomy" style="font-family: var(--font-mono); font-size: var(--fs-14);">
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap: var(--space-3) var(--space-6);">
+            <div>Association → <strong>Ass'n</strong></div>
+            <div>Brothers → <strong>Bros.</strong></div>
+            <div>Company → <strong>Co.</strong></div>
+            <div>Corporation → <strong>Corp.</strong></div>
+            <div>Department → <strong>Dep't</strong></div>
+            <div>District → <strong>Dist.</strong></div>
+            <div>Division → <strong>Div.</strong></div>
+            <div>Education → <strong>Educ.</strong></div>
+            <div>Federal → <strong>Fed.</strong></div>
+            <div>Government → <strong>Gov't</strong></div>
+            <div>Incorporated → <strong>Inc.</strong></div>
+            <div>Institute → <strong>Inst.</strong></div>
+            <div>International → <strong>Int'l</strong></div>
+            <div>Limited → <strong>Ltd.</strong></div>
+            <div>Management → <strong>Mgmt.</strong></div>
+            <div>National → <strong>Nat'l</strong></div>
+            <div>Number → <strong>No.</strong></div>
+            <div>Public → <strong>Pub.</strong></div>
+            <div>Railroad → <strong>R.R.</strong></div>
+            <div>Service → <strong>Serv.</strong></div>
+            <div>Society → <strong>Soc'y</strong></div>
+            <div>University → <strong>Univ.</strong></div>
+          </div>
+        </div>
+
+        <h3>The "first word" exception</h3>
+        <p>If a Table-6 word is the <strong>first word of a party's name</strong>, do <em>not</em> abbreviate it — unless the entity is widely known by its abbreviation. So:</p>
+        <ul>
+          <li><strong>"Federal Trade Commission"</strong> as a party → <em>Federal Trade Comm'n v. Smith</em> (don't abbreviate "Federal" as the first word).</li>
+          <li><strong>"International Business Machines"</strong> → <em>International Bus. Machs. Corp. v. Jones</em> (don't abbreviate "International" as the first word).</li>
+          <li>But <strong>"FCC"</strong> is acceptable because the abbreviation is the entity's common name.</li>
+        </ul>
+
+        <h3>Punctuation inside abbreviations</h3>
+        <p>Some abbreviations use an apostrophe (<strong>Ass'n</strong>, <strong>Nat'l</strong>, <strong>Gov't</strong>, <strong>Dep't</strong>) to mark a contracted middle. Others end with a period (<strong>Corp.</strong>, <strong>Co.</strong>, <strong>Inc.</strong>). Don't add an extra period when the abbreviation ends with one and falls at the end of a sentence — one period does the job.</p>
+
+        <h3>Why the rule exists</h3>
+        <p>Case names recur in every kind of legal writing. Abbreviating "International Business Machines Corporation" to <em>Int'l Bus. Machs. Corp.</em> every time saves space without losing the entity. Standard abbreviations also keep tables of authorities consistent — every brief in the case spells it the same way.</p>
+
+        <h3>Common mistakes</h3>
+        <ul>
+          <li>Abbreviating a Table-6 word that appears as the <strong>first</strong> word of a party's name (other than the well-known-entity exception).</li>
+          <li>Inventing abbreviations not in Table 6. If a word isn't in the table, spell it out.</li>
+          <li>Forgetting the apostrophe in <strong>Ass'n</strong>, <strong>Nat'l</strong>, etc.</li>
+          <li>Abbreviating in prose. Table 6 governs <em>case names</em>, not regular writing.</li>
+        </ul>
+
+      </article>
+
+      <div class="lesson" style="background: var(--ink-50); border-color: var(--ink-200); text-align: center;">
+        <h3 style="margin-bottom: var(--space-3);">You've finished the lessons.</h3>
+        <p style="margin: 0 auto var(--space-5); max-width: 52ch;">Now put it together. Try the practice set to drill one rule at a time, or jump straight to a full assessment.</p>
+        <div style="display:flex; gap: var(--space-3); justify-content:center; flex-wrap:wrap;">
+          <a href="./practice.html" class="btn btn--primary">Open practice set</a>
+          <a href="./assessment.html" class="btn btn--secondary">Take an assessment</a>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <img src="./design-system/assets/logo-wordmark-light.svg" alt="Citelines"/>
+        <p>A study companion to the Bluebook's blue pages, built for 1Ls.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--paper-50); margin-bottom: var(--space-3); font-size: var(--fs-14);">Sections</h4>
+        <ul style="list-style:none; padding:0; margin:0; font-size: var(--fs-14); display:flex; flex-direction:column; gap: 6px;">
+          <li><a href="./learn.html" style="color: var(--ink-200);">Learn</a></li>
+          <li><a href="./practice.html" style="color: var(--ink-200);">Practice</a></li>
+          <li><a href="./assessment.html" style="color: var(--ink-200);">Assessments</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Citelines &middot; Carolina Law study companion</span>
+      <span>Always check the current edition of the Bluebook for authoritative rules.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ------- Inline exercise feedback -------
+  function checkChoice(exId, correctValue, explanation) {
+    var ex = document.querySelector('[data-ex="' + exId + '"]');
+    if (!ex) return;
+    var radios = ex.querySelectorAll('input[type="radio"]');
+    var picked = null;
+    radios.forEach(function(r) { if (r.checked) picked = r; });
+    var fb = document.getElementById('fb-' + exId);
+    // clear previous styling
+    ex.querySelectorAll('.choice').forEach(function(c){ c.classList.remove('is-correct','is-wrong'); });
+    fb.classList.remove('show','is-correct','is-wrong');
+
+    if (!picked) {
+      fb.innerHTML = '<strong>Pick an answer first</strong>, then hit Check answer.';
+      fb.classList.add('show','is-wrong');
+      return;
+    }
+    // mark correct choice always
+    radios.forEach(function(r) {
+      if (r.value === correctValue) r.parentElement.classList.add('is-correct');
+    });
+    if (picked.value === correctValue) {
+      fb.innerHTML = '<strong>Correct.</strong> ' + explanation;
+      fb.classList.add('show','is-correct');
+    } else {
+      picked.parentElement.classList.add('is-wrong');
+      fb.innerHTML = '<strong>Not quite.</strong> ' + explanation;
+      fb.classList.add('show','is-wrong');
+    }
+  }
+
+  // ------- TOC scroll-spy -------
+  var tocLinks = document.querySelectorAll('.lesson-toc a');
+  var lessons = Array.from(document.querySelectorAll('.lesson[id]'));
+  function spy() {
+    var y = window.scrollY + 120;
+    var current = lessons[0];
+    lessons.forEach(function(l){ if (l.offsetTop <= y) current = l; });
+    tocLinks.forEach(function(a){
+      a.classList.toggle('is-active', a.getAttribute('href') === '#' + current.id);
+    });
+  }
+  window.addEventListener('scroll', spy, { passive: true });
+  spy();
+</script>
+
+</body>
+</html>

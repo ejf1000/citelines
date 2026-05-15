@@ -1,0 +1,24 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Badges & chips</title>
+<link rel="stylesheet" href="_card.css"></head><body>
+<style>
+  .badge { display:inline-flex; align-items:center; gap:6px; font-family: var(--font-body); font-weight:600; font-size:12px; padding: 3px 8px; border-radius: 999px; }
+  .badge .dot { width:6px; height:6px; border-radius:99px; }
+  .chip { display:inline-flex; align-items:center; gap:6px; font-family: var(--font-body); font-weight:500; font-size:13px; padding: 4px 10px; border-radius: 4px; background:#fff; border:1px solid var(--border-soft); color: var(--fg-2); }
+  .chip-mono { font-family: var(--font-mono); color: var(--ink-700); }
+</style>
+<div class="card">
+  <div class="eyebrow" style="margin-bottom:14px">Badges &amp; Chips</div>
+  <div class="row" style="gap:8px;flex-wrap:wrap;margin-bottom:14px">
+    <span class="badge" style="background:#d9e6dc;color:#3a6347"><span class="dot" style="background:#4a7c59"></span>Affirmed</span>
+    <span class="badge" style="background:#d8e3f2;color:#1a3c66"><span class="dot" style="background:#2f5e93"></span>Cited 1,204×</span>
+    <span class="badge" style="background:#f3e2c3;color:#7a5520"><span class="dot" style="background:#c98b3c"></span>Questioned</span>
+    <span class="badge" style="background:#f5d9d1;color:#823728"><span class="dot" style="background:#c8553d"></span>Overruled</span>
+  </div>
+  <div class="row" style="gap:8px;flex-wrap:wrap">
+    <span class="chip">All jurisdictions</span>
+    <span class="chip">SCOTUS</span>
+    <span class="chip">1950 – 1970</span>
+    <span class="chip chip-mono">§ 1983</span>
+    <span class="chip chip-mono">Fed. R. Civ. P. 12</span>
+  </div>
+</div></body></html>
