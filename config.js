@@ -6,5 +6,5 @@
 // in Supabase Auth settings, not from keeping this key secret.
 //
 // Fill these in from your Supabase project: Settings → API.
-const SUPABASE_URL = "YOUR_SUPABASE_PROJECT_URL";
-const SUPABASE_ANON_KEY = "YOUR_SUPABASE_ANON_KEY";
+const SUPABASE_URL = "https://likrktnslnwbllrcojjy.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_BydJvQvhEyi3uHcrZa2hUg_oun9yk_Z";
