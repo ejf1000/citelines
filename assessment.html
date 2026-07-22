@@ -22,6 +22,7 @@
       <a href="./assessment.html" class="is-active">Assessments</a>
       <a href="./quizzes.html">Quizzes</a>
     </nav>
+      <div class="nav__auth" id="auth-slot"></div>
   </div>
 </header>
 
@@ -933,6 +934,10 @@
     if (currentTestIdx !== null) startTest(currentTestIdx);
   }
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./config.js"></script>
+<script src="./auth.js"></script>
 
 </body>
 </html>
