@@ -10,3 +10,9 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Admin scripts: never commit the real roster or credentials
+admin/node_modules/
+admin/roster.csv
+admin/.env
+admin/*.key

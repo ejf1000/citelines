@@ -22,6 +22,7 @@
       <a href="./assessment.html">Assessments</a>
       <a href="./quizzes.html" class="is-active">Quizzes</a>
     </nav>
+      <div class="nav__auth" id="auth-slot"></div>
   </div>
 </header>
 
@@ -281,6 +282,7 @@
       }
     });
     document.getElementById('submit-meta').textContent = `You scored ${correct} of ${total}.`;
+    recordQuizAttempt('scratchoff', correct, total);
   }
 
   function resetQuiz() {
@@ -290,6 +292,10 @@
 
   render();
 </script>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script src="./config.js"></script>
+<script src="./auth.js"></script>
 
 </body>
 </html>

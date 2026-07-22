@@ -1,0 +1,9 @@
+{
+  "name": "citelines-admin",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Roster-management scripts for course staff. Not part of the deployed site.",
+  "dependencies": {
+    "@supabase/supabase-js": "^2"
+  }
+}
