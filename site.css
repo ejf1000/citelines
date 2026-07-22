@@ -500,6 +500,41 @@ p  { margin: 0 0 var(--space-4); }
   border-color: var(--ink-500);
   box-shadow: var(--ring-focus);
 }
+
+/* Rich-text citation answer box (Write-a-Cite quizzes) — contenteditable so
+   students can italicize case names with the browser's native Ctrl/Cmd+I. */
+.cite-input {
+  width: 100%;
+  min-height: 26px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-14);
+  color: var(--ink-800);
+  background: var(--paper-50);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.cite-input:focus {
+  outline: none;
+  border-color: var(--ink-500);
+  box-shadow: var(--ring-focus);
+}
+.cite-input:empty:before {
+  content: attr(data-placeholder);
+  color: var(--fg-4);
+}
+.cite-input.is-correct { border-color: var(--accent-moss); background: var(--accent-moss-soft); }
+.cite-input.is-wrong { border-color: var(--accent-coral); background: var(--accent-coral-soft); }
+
+.exercise__hint {
+  font-size: var(--fs-12);
+  color: var(--fg-3);
+  margin-top: 6px;
+}
+
 .exercise__choices {
   display: flex;
   flex-direction: column;
