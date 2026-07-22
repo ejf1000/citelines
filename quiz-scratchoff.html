@@ -49,6 +49,11 @@
 
     <div id="questions"></div>
 
+    <div style="margin: var(--space-8) 0 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3);">
+      <span class="muted small" id="submit-meta"></span>
+      <button class="btn btn--primary btn--lg" onclick="checkAllAnswers()">Check answers</button>
+    </div>
+
   </div>
 </section>
 
@@ -108,7 +113,7 @@
       answer:'c'
     },
     {
-      intro: `
+      snippet: `
         <div class="case-card">
           <div class="case-card__name">State v. Towery</div>
           <div class="case-card__meta">Supreme Court of North Carolina &middot; January 15, 1954 &middot; 239 N.C. 274 &middot; 79 S.E.2d 513 &middot; (Approx. 5 pages)</div>
@@ -124,7 +129,7 @@
       answer:'b'
     },
     {
-      intro: `
+      snippet: `
         <div class="case-card">
           <div class="case-card__name">Maola Ice Cream Co. of N.C. v. Maola Milk &amp; Ice Cream Co.</div>
           <div class="case-card__meta">Supreme Court of North Carolina &middot; October 14, 1953 &middot; 238 N.C. 317 &middot; 77 S.E.2d 910 &middot; 99 U.S.P.Q. 296 &middot; (Approx. 11 pages)</div>
@@ -201,8 +206,10 @@
     }
   ];
 
+  // ===== State =====
+  let currentAnswers = {}; // idx -> chosen value
+
   function render() {
-    document.getElementById('pane-progress').textContent = `${QUESTIONS.length} questions`;
     const questionsEl = document.getElementById('questions');
     questionsEl.innerHTML = QUESTIONS.map((q, idx) => `
       ${q.intro || ''}
@@ -211,53 +218,73 @@
           <span class="exercise__label">Question ${idx + 1} of ${QUESTIONS.length}</span>
         </div>
         <div class="exercise__q">${q.q}</div>
+        ${q.snippet || ''}
         <div class="exercise__choices">
           ${q.choices.map(c => `
             <label class="choice">
-              <input type="radio" name="q${idx}" value="${c.v}"/>
+              <input type="radio" name="q${idx}" value="${c.v}" onchange="recordAnswer(${idx}, '${c.v}')"/>
               <span>${c.t}</span>
             </label>
           `).join('')}
         </div>
-        <div class="exercise__actions">
-          <button class="btn btn--primary btn--sm" onclick="checkQuizQ(${idx})">Check answer</button>
-        </div>
         <div class="exercise__feedback" id="fb-${idx}"></div>
       </div>
     `).join('');
+    updateProgress();
+    document.getElementById('submit-meta').textContent = '';
   }
 
-  function checkQuizQ(qIdx) {
-    const question = QUESTIONS[qIdx];
-    const exEl = document.querySelector(`[data-q="${qIdx}"]`);
-    if (!exEl) return;
-    const radios = exEl.querySelectorAll('input[type="radio"]');
-    let picked = null;
-    radios.forEach(r => { if (r.checked) picked = r; });
-    const fb = document.getElementById(`fb-${qIdx}`);
-    exEl.querySelectorAll('.choice').forEach(c => c.classList.remove('is-correct','is-wrong'));
-    fb.classList.remove('show','is-correct','is-wrong');
+  function recordAnswer(idx, v) {
+    currentAnswers[idx] = v;
+    updateProgress();
+  }
 
-    if (!picked) {
-      fb.innerHTML = '<strong>Pick an answer first</strong>, then hit Check answer.';
-      fb.classList.add('show','is-wrong');
-      return;
+  function updateProgress() {
+    const answered = Object.keys(currentAnswers).length;
+    document.getElementById('pane-progress').textContent = `${answered} of ${QUESTIONS.length} answered`;
+  }
+
+  function checkAllAnswers() {
+    const total = QUESTIONS.length;
+    const unanswered = total - Object.keys(currentAnswers).length;
+    if (unanswered > 0) {
+      if (!confirm(`You have ${unanswered} unanswered question${unanswered === 1 ? '' : 's'}. Check anyway?`)) {
+        return;
+      }
     }
-    const correctChoice = question.choices.find(c => c.v === question.answer);
-    radios.forEach(r => {
-      if (r.value === question.answer) r.parentElement.classList.add('is-correct');
+    let correct = 0;
+    QUESTIONS.forEach((q, idx) => {
+      const exEl = document.querySelector(`[data-q="${idx}"]`);
+      const fb = document.getElementById(`fb-${idx}`);
+      exEl.querySelectorAll('.choice').forEach(c => c.classList.remove('is-correct','is-wrong'));
+      fb.classList.remove('show','is-correct','is-wrong');
+
+      const picked = currentAnswers[idx];
+      const correctChoice = q.choices.find(c => c.v === q.answer);
+      exEl.querySelectorAll('input[type="radio"]').forEach(r => {
+        if (r.value === q.answer) r.parentElement.classList.add('is-correct');
+      });
+
+      if (!picked) {
+        fb.innerHTML = `<strong>Skipped.</strong> The correct answer is <span class="answer">${correctChoice.t}</span>.`;
+        fb.classList.add('show','is-wrong');
+        return;
+      }
+      if (picked === q.answer) {
+        correct++;
+        fb.innerHTML = '<strong>Correct.</strong>';
+        fb.classList.add('show','is-correct');
+      } else {
+        exEl.querySelector(`input[value="${picked}"]`).parentElement.classList.add('is-wrong');
+        fb.innerHTML = `<strong>Not quite.</strong> The correct answer is <span class="answer">${correctChoice.t}</span>.`;
+        fb.classList.add('show','is-wrong');
+      }
     });
-    if (picked.value === question.answer) {
-      fb.innerHTML = '<strong>Correct.</strong>';
-      fb.classList.add('show','is-correct');
-    } else {
-      picked.parentElement.classList.add('is-wrong');
-      fb.innerHTML = `<strong>Not quite.</strong> The correct answer is <span class="answer">${correctChoice.t}</span>.`;
-      fb.classList.add('show','is-wrong');
-    }
+    document.getElementById('submit-meta').textContent = `You scored ${correct} of ${total}.`;
   }
 
   function resetQuiz() {
+    currentAnswers = {};
     render();
   }
 
