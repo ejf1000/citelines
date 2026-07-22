@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Scratch-off Quiz — Citelines</title>
+  <link rel="icon" type="image/svg+xml" href="./design-system/assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="./site.css"/>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__row">
+    <a href="./index.html" class="nav__brand">
+      <img src="./design-system/assets/logo-wordmark.svg" alt="Citelines"/>
+      <span class="nav__brand-sub">Learn the Bluebook</span>
+    </a>
+    <nav class="nav__links">
+      <a href="./index.html">Home</a>
+      <a href="./learn.html">Learn</a>
+      <a href="./practice.html">Practice</a>
+      <a href="./assessment.html">Assessments</a>
+      <a href="./quizzes.html" class="is-active">Quizzes</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: var(--space-12) 0 var(--space-6); border-bottom: 1px solid var(--border-hairline); background: linear-gradient(180deg, var(--paper-50), var(--paper-100));">
+  <div class="container">
+    <a href="./quizzes.html" class="muted small" style="display:inline-block; margin-bottom: var(--space-4);">← All quizzes</a>
+    <div class="hero__eyebrow">Quizzes · Scratch-off</div>
+    <h1 style="max-width: 26ch;">Scratch-off</h1>
+    <p class="hero__lede" style="margin-top: var(--space-4); max-width: 64ch;">Ten questions on reading a court opinion, pulling out pincites and case citations, and case-research basics.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container--narrow">
+
+    <div class="example">
+      <div class="example__label">Note</div>
+      <p style="margin:0; font-size: var(--fs-14); color: var(--fg-2);">In this exercise, assume that you have not been asked to do a parallel citation.</p>
+    </div>
+
+    <div id="quiz-progress" style="display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); margin: var(--space-8) 0 0;">
+      <span class="muted small" id="pane-progress"></span>
+      <button class="btn btn--ghost btn--sm" onclick="resetQuiz()">Reset answers</button>
+    </div>
+
+    <div id="questions"></div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <img src="./design-system/assets/logo-wordmark-light.svg" alt="Citelines"/>
+        <p>A study companion to the Bluebook's blue pages, built for 1Ls.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--paper-50); margin-bottom: var(--space-3); font-size: var(--fs-14);">Sections</h4>
+        <ul style="list-style:none; padding:0; margin:0; font-size: var(--fs-14); display:flex; flex-direction:column; gap: 6px;">
+          <li><a href="./learn.html" style="color: var(--ink-200);">Learn</a></li>
+          <li><a href="./practice.html" style="color: var(--ink-200);">Practice</a></li>
+          <li><a href="./assessment.html" style="color: var(--ink-200);">Assessments</a></li>
+          <li><a href="./quizzes.html" style="color: var(--ink-200);">Quizzes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Citelines &middot; Carolina Law study companion</span>
+      <span>Always check the current edition of the Bluebook for authoritative rules.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== Quiz data: 4B Scratch-off =====
+  const QUESTIONS = [
+    {
+      intro: `
+        <div class="eyebrow">Questions 1 &amp; 2 are about this snippet from a court opinion</div>
+        <div class="case-card">
+          <div class="case-card__excerpt" style="margin-top:0; padding-top:0; border-top:none;">
+            &hellip;assignments are as follows: The defendant operated a hotel in New Haven, and on August 27, 1942, and for a long time prior thereto the plaintiff <span class="star-page">*509</span> occupied one room in the hotel. On August 27, he was bitten by a rat&hellip;
+          </div>
+        </div>
+      `,
+      q: 'What is the first word on page 509?',
+      choices: [
+        { v:'a', t:'assignments' },
+        { v:'b', t:'occupied' },
+        { v:'c', t:'plaintiff' },
+        { v:'d', t:'&hellip;does that say bitten by a rat' }
+      ],
+      answer:'b'
+    },
+    {
+      q: 'What would be the correct pincite for this phrase: &ldquo;the plaintiff occupied one room&rdquo;?',
+      choices: [
+        { v:'a', t:'508-509' },
+        { v:'b', t:'508, 509' },
+        { v:'c', t:'508-09' },
+        { v:'d', t:'None of the above' }
+      ],
+      answer:'c'
+    },
+    {
+      intro: `
+        <div class="case-card">
+          <div class="case-card__name">State v. Towery</div>
+          <div class="case-card__meta">Supreme Court of North Carolina &middot; January 15, 1954 &middot; 239 N.C. 274 &middot; 79 S.E.2d 513 &middot; (Approx. 5 pages)</div>
+        </div>
+      `,
+      q: 'Which of these is the correct citation for the case in the snippet?',
+      choices: [
+        { v:'a', t:'<em>State v. Towery</em>, 239 NC 274 (1954)' },
+        { v:'b', t:'<em>State v. Towery</em>, 79 S.E.2d 513 (N.C. 1954)' },
+        { v:'c', t:'<em>State v. Towery</em>, 239 N.C. 274 (Jan. 14, 1954)' },
+        { v:'d', t:'<em>State of North Carolina v. Towery</em>, 79 S.E.2d 513 (NC 1954)' }
+      ],
+      answer:'b'
+    },
+    {
+      intro: `
+        <div class="case-card">
+          <div class="case-card__name">Maola Ice Cream Co. of N.C. v. Maola Milk &amp; Ice Cream Co.</div>
+          <div class="case-card__meta">Supreme Court of North Carolina &middot; October 14, 1953 &middot; 238 N.C. 317 &middot; 77 S.E.2d 910 &middot; 99 U.S.P.Q. 296 &middot; (Approx. 11 pages)</div>
+        </div>
+      `,
+      q: 'Which of these is a correct citation for the reporter and parenthetical portion of the case in the snippet?',
+      choices: [
+        { v:'a', t:'77 S.E.2d 910 (N.C. 1953)' },
+        { v:'b', t:'238 N.C. 317 (S.E.2d 1953)' },
+        { v:'c', t:'77 S.E.2d 910 (1953)' },
+        { v:'d', t:'None of these' }
+      ],
+      answer:'a'
+    },
+    {
+      q: "Assuming that your citations to the case above include only quotations of explicit rules, what's missing from all of the answer options for 3 &amp; 4 that you'd include in a real memo cite?",
+      choices: [
+        { v:'a', t:'the court name' },
+        { v:'b', t:'a signal' },
+        { v:'c', t:'pinpoint cites (aka pincites)' },
+        { v:'d', t:'a certain <em>je ne sais quoi</em>' }
+      ],
+      answer:'c'
+    },
+    {
+      q: 'What are Notes of Decisions?',
+      choices: [
+        { v:'a', t:'a list of all the cases that have cited a statute' },
+        { v:'b', t:'a list of all the sources that have cited a statute' },
+        { v:'c', t:'a piece of commentary on the law around a statute' },
+        { v:'d', t:'a curated list describing cases that have interpreted a statute' }
+      ],
+      answer:'d'
+    },
+    {
+      q: "What's an invisible rule?",
+      choices: [
+        { v:'a', t:"A rule that's clearly applied in a judicial opinion but not actually written there." },
+        { v:'b', t:"A rule that's so obvious you don't have to write it down." },
+        { v:'c', t:'A rule that has disappeared from modern usage.' },
+        { v:'d', t:'An explicitly-stated rule cited across case law.' }
+      ],
+      answer:'a'
+    },
+    {
+      q: 'If you have a statutory term that you need to define, where is a likely place to find that definition?',
+      choices: [
+        { v:'a', t:'a nearby statute section' },
+        { v:'b', t:'case law' },
+        { v:'c', t:'A or B' },
+        { v:'d', t:'the Notes of Decision' }
+      ],
+      answer:'c'
+    },
+    {
+      q: 'What are headnotes useful for?',
+      choices: [
+        { v:'a', t:'taking you to the spot in the case where a specific point appears' },
+        { v:'b', t:'pulling out specific points made in the case like a table of contents' },
+        { v:'c', t:'leading you to other cases that cite this case for a specific point' },
+        { v:'d', t:'All of the above' }
+      ],
+      answer:'d'
+    },
+    {
+      q: "What do you call a color that hasn't been discovered yet?",
+      choices: [
+        { v:'a', t:'wait for it . . .' },
+        { v:'b', t:'waaaaaaait for it . . .' },
+        { v:'c', t:'A pigment of your imagination' },
+        { v:'d', t:'THANK U AND GOOD NIGHT' }
+      ],
+      answer:'c'
+    }
+  ];
+
+  function render() {
+    document.getElementById('pane-progress').textContent = `${QUESTIONS.length} questions`;
+    const questionsEl = document.getElementById('questions');
+    questionsEl.innerHTML = QUESTIONS.map((q, idx) => `
+      ${q.intro || ''}
+      <div class="exercise" data-q="${idx}">
+        <div class="exercise__head">
+          <span class="exercise__label">Question ${idx + 1} of ${QUESTIONS.length}</span>
+        </div>
+        <div class="exercise__q">${q.q}</div>
+        <div class="exercise__choices">
+          ${q.choices.map(c => `
+            <label class="choice">
+              <input type="radio" name="q${idx}" value="${c.v}"/>
+              <span>${c.t}</span>
+            </label>
+          `).join('')}
+        </div>
+        <div class="exercise__actions">
+          <button class="btn btn--primary btn--sm" onclick="checkQuizQ(${idx})">Check answer</button>
+        </div>
+        <div class="exercise__feedback" id="fb-${idx}"></div>
+      </div>
+    `).join('');
+  }
+
+  function checkQuizQ(qIdx) {
+    const question = QUESTIONS[qIdx];
+    const exEl = document.querySelector(`[data-q="${qIdx}"]`);
+    if (!exEl) return;
+    const radios = exEl.querySelectorAll('input[type="radio"]');
+    let picked = null;
+    radios.forEach(r => { if (r.checked) picked = r; });
+    const fb = document.getElementById(`fb-${qIdx}`);
+    exEl.querySelectorAll('.choice').forEach(c => c.classList.remove('is-correct','is-wrong'));
+    fb.classList.remove('show','is-correct','is-wrong');
+
+    if (!picked) {
+      fb.innerHTML = '<strong>Pick an answer first</strong>, then hit Check answer.';
+      fb.classList.add('show','is-wrong');
+      return;
+    }
+    const correctChoice = question.choices.find(c => c.v === question.answer);
+    radios.forEach(r => {
+      if (r.value === question.answer) r.parentElement.classList.add('is-correct');
+    });
+    if (picked.value === question.answer) {
+      fb.innerHTML = '<strong>Correct.</strong>';
+      fb.classList.add('show','is-correct');
+    } else {
+      picked.parentElement.classList.add('is-wrong');
+      fb.innerHTML = `<strong>Not quite.</strong> The correct answer is <span class="answer">${correctChoice.t}</span>.`;
+      fb.classList.add('show','is-wrong');
+    }
+  }
+
+  function resetQuiz() {
+    render();
+  }
+
+  render();
+</script>
+
+</body>
+</html>

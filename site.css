@@ -370,6 +370,41 @@ p  { margin: 0 0 var(--space-4); }
 .example--good { border-left-color: var(--accent-moss); }
 .example--good .example__label { color: var(--accent-moss); }
 
+/* Case snippet — court-opinion excerpt or case-header card used in quizzes */
+.case-card {
+  background: var(--paper-100);
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-6) 0;
+}
+.case-card__name {
+  font: 700 var(--fs-20)/1.3 var(--font-display);
+  font-style: italic;
+  color: var(--ink-600);
+  margin-bottom: var(--space-2);
+}
+.case-card__meta {
+  font-size: var(--fs-13);
+  color: var(--fg-3);
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1) var(--space-3);
+}
+.case-card__excerpt {
+  font-size: var(--fs-15);
+  line-height: 1.8;
+  color: var(--fg-2);
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-hairline);
+}
+.star-page {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--accent-amber);
+}
+
 /* Annotated parts of a citation */
 .anatomy {
   background: var(--paper-100);
