@@ -1,0 +1,370 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>2020 Write-A-Cite Quiz — Citelines</title>
+  <link rel="icon" type="image/svg+xml" href="./design-system/assets/logo-mark.svg"/>
+  <link rel="stylesheet" href="./site.css"/>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav__row">
+    <a href="./index.html" class="nav__brand">
+      <img src="./design-system/assets/logo-wordmark.svg" alt="Citelines"/>
+      <span class="nav__brand-sub">Learn the Bluebook</span>
+    </a>
+    <nav class="nav__links">
+      <a href="./index.html">Home</a>
+      <a href="./learn.html">Learn</a>
+      <a href="./practice.html">Practice</a>
+      <a href="./assessment.html">Assessments</a>
+      <a href="./quizzes.html" class="is-active">Quizzes</a>
+    </nav>
+  </div>
+</header>
+
+<section style="padding: var(--space-12) 0 var(--space-6); border-bottom: 1px solid var(--border-hairline); background: linear-gradient(180deg, var(--paper-50), var(--paper-100));">
+  <div class="container">
+    <a href="./quizzes.html" class="muted small" style="display:inline-block; margin-bottom: var(--space-4);">← All quizzes</a>
+    <div class="hero__eyebrow">Quizzes · Fall 2020</div>
+    <h1 style="max-width: 30ch;">Fall 2020 Write-A-Cite Quiz</h1>
+    <p class="hero__lede" style="margin-top: var(--space-4); max-width: 64ch;">Read a short memo, pull citations from a set of legal authorities, and write out each citation yourself — fifteen in all.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container container--narrow">
+
+    <div class="example">
+      <div class="example__label">Instructions</div>
+      <p style="margin:0; font-size: var(--fs-14); color: var(--fg-2);">To complete this quiz, download the Memo and Legal Authorities below and review them carefully. Remember that these legal authorities are abridged, meaning they should not be used outside this context. Case names must be written in italics (not underlined) to be correctly graded. Use your computer's keyboard shortcut for italics.</p>
+    </div>
+
+    <div style="display:flex; gap: var(--space-4); flex-wrap:wrap; margin: var(--space-6) 0 var(--space-8);">
+      <a href="./downloads/fall-2020-memo.docx" download="Fall 2020 - Memo.docx" class="btn btn--secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        Fall 2020 – Memo (.docx)
+      </a>
+      <a href="./downloads/fall-2020-legal-authorities.docx" download="Fall 2020 - Legal Authorities.docx" class="btn btn--secondary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-right:6px;"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+        Fall 2020 – Legal Authorities (.docx)
+      </a>
+    </div>
+
+    <div class="example">
+      <div class="example__label">How to answer</div>
+      <p style="margin:0 0 6px; font-size: var(--fs-14); color: var(--fg-2);">Each item below quotes a proposition from the memo. Type the citation that belongs there, or type <strong>None</strong> if the proposition needs no citation.</p>
+      <p style="margin:0; font-size: var(--fs-14); color: var(--fg-2);">Select text and press <strong>Ctrl+I</strong> (Windows) or <strong>Cmd+I</strong> (Mac) to italicize case names, just like a real citation. <strong>Italics are graded</strong> — a citation is only marked correct if the right parts are italicized, not just the right words.</p>
+    </div>
+
+    <div id="quiz-progress" style="display:flex; justify-content:space-between; align-items:center; gap: var(--space-4); margin: var(--space-8) 0 0;">
+      <span class="muted small" id="pane-progress"></span>
+      <button class="btn btn--ghost btn--sm" onclick="resetQuiz()">Reset answers</button>
+    </div>
+
+    <div id="questions"></div>
+
+    <div style="margin: var(--space-8) 0 0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:var(--space-3);">
+      <span class="muted small" id="submit-meta"></span>
+      <button class="btn btn--primary btn--lg" onclick="checkAllAnswers()">Check answers</button>
+    </div>
+
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer__row">
+      <div class="footer__brand">
+        <img src="./design-system/assets/logo-wordmark-light.svg" alt="Citelines"/>
+        <p>A study companion to the Bluebook's blue pages, built for 1Ls.</p>
+      </div>
+      <div>
+        <h4 style="color: var(--paper-50); margin-bottom: var(--space-3); font-size: var(--fs-14);">Sections</h4>
+        <ul style="list-style:none; padding:0; margin:0; font-size: var(--fs-14); display:flex; flex-direction:column; gap: 6px;">
+          <li><a href="./learn.html" style="color: var(--ink-200);">Learn</a></li>
+          <li><a href="./practice.html" style="color: var(--ink-200);">Practice</a></li>
+          <li><a href="./assessment.html" style="color: var(--ink-200);">Assessments</a></li>
+          <li><a href="./quizzes.html" style="color: var(--ink-200);">Quizzes</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__legal">
+      <span>© 2026 Citelines &middot; Carolina Law study companion</span>
+      <span>Always check the current edition of the Bluebook for authoritative rules.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ===== Quiz data: Fall 2020 Write-a-Cite =====
+  // `display`: accepted answer(s) as HTML, <em> marking exactly what must be
+  // italicized. Grading checks both the text AND the italics against this —
+  // a citation with the right words but the wrong (or missing) italics is
+  // marked wrong, same as a real Bluebook grader would. Some items in the
+  // source answer key mark a word as optional (e.g. an introductory "See")
+  // — those are listed here as separate accepted variants, with and
+  // without the optional word.
+  const QUESTIONS = [
+    {
+      marker: 1,
+      prompt: '“Triple E Housing Co. (Triple E) wants to remove Andrea Jenkins from the unit in which she lives.”',
+      display: ['None']
+    },
+    {
+      marker: 2,
+      prompt: '“Because Triple E owns the unit and has a formal agreement with her, Triple E considers itself to be a landlord and Ms. Jenkins to be Triple E’s tenant.”',
+      display: ['None']
+    },
+    {
+      marker: 3,
+      prompt: '“In North Carolina, a landlord can remove a residential tenant from her dwelling place only according to a statutorily prescribed procedure.”',
+      display: ['N.C. Gen. Stat. § 107-19.6 (2019).']
+    },
+    {
+      marker: 4,
+      prompt: '“A landlord can use this procedure to remove a tenant who ‘holds over,’ or stays in the property after her lease term has expired and the landlord has demanded that she leave.”',
+      display: ['<em>Id.</em> § 107-20(a)(1)', '§ 107-20(a)(1)', 'N.C. Gen. Stat. § 107-20(a)(1).']
+    },
+    {
+      marker: 5,
+      prompt: '“Such summary ejectment actions by landlords are ‘purely statutory.’”',
+      display: [
+        '<em>Cmty. Hous. Grp. of N.C. v. Henry</em>, 331 N.C. 264, 264, 417 S.E.2d 383, 383 (1996).',
+        '<em>See</em> <em>Cmty. Hous. Grp. of N.C. v. Henry</em>, 331 N.C. 264, 264, 417 S.E.2d 383, 383 (1996).'
+      ]
+    },
+    {
+      marker: 6,
+      prompt: '“Therefore, the remedy of summary ejectment is limited to situations provided in the statute.”',
+      display: ['<em>Id.</em>, 417 S.E.2d at 383.']
+    },
+    {
+      marker: 7,
+      prompt: '“Triple E is aware of the statute and believes it can pursue summary ejectment of Ms. Jenkins.”',
+      display: ['None']
+    },
+    {
+      marker: 8,
+      prompt: '“Ms. Jenkins is indeed holding over in a unit that Triple E owns, and Triple E has demanded that she vacate the unit.”',
+      display: ['None']
+    },
+    {
+      marker: 9,
+      prompt: '“The remaining question is whether Triple E is a landlord.”',
+      display: ['None']
+    },
+    {
+      marker: 10,
+      prompt: '“The answer is almost certainly yes.”',
+      display: ['None']
+    },
+    {
+      marker: 11,
+      prompt: '“A court must dismiss a summary ejectment action ‘[i]f the record lacks evidence’ that the parties to the action have a landlord-tenant relationship.”',
+      display: ['<em>Ramirez v. Lee</em>, 99 N.C. App. 167, 173, 393 S.E.2d 18, 23 (2001).']
+    },
+    {
+      marker: 12,
+      prompt: '“Such a relationship requires ‘some contract or lease, either actual or implied,’ between the parties.”',
+      display: [
+        '<em>Jones v. Swain</em>, 109 N.C. App. 319, 319-20, 420 S.E.2d 111, 111 (2004).',
+        '<em>See Jones v. Swain</em>, 109 N.C. App. 319, 319-20, 420 S.E.2d 111, 111 (2004).'
+      ]
+    },
+    {
+      marker: 13,
+      prompt: '“For instance, when a resident had lived at a property for over a year but had never paid rent and had no contract with the property owner, there was no landlord-tenant relationship, and thus summary ejectment of the resident was inappropriate.”',
+      display: ['<em>Id.</em> at 320-21, 420 S.E.2d at 112-13.']
+    },
+    {
+      marker: 14,
+      prompt: '“But money does not have to change hands to establish a landlord-tenant relationship.”',
+      display: ['<em>See Ramirez</em>, 99 N.C. App. at 174, 393 S.E.2d at 24.']
+    },
+    {
+      marker: 15,
+      prompt: '“Moreover, while North Carolina courts have not addressed the issue, in at least one other state, an Occupancy Agreement in a cooperative created a landlord-tenant relationship for purposes of that jurisdiction’s comparable statute.”',
+      display: [
+        '<em>See Mgmt. P’ship v. Banker</em>, 959 N.E.2d 943, 945 (Ill. 2011).',
+        '<em>See Mgmt. P’ship v. Banker</em>, 959 N.E.2d 943, 945-46 (Ill. 2011).',
+        '<em>See Mgmt. P’ship Co. v. Banker</em>, 959 N.E.2d 943, 945 (Ill. 2011).',
+        '<em>See Mgmt. P’ship Co. v. Banker</em>, 959 N.E.2d 943, 945-46 (Ill. 2011).'
+      ]
+    }
+  ];
+
+  // ===== State =====
+  let answeredCount = 0;
+
+  function render() {
+    const questionsEl = document.getElementById('questions');
+    questionsEl.innerHTML = QUESTIONS.map((q, idx) => `
+      <div class="exercise" data-q="${idx}">
+        <div class="exercise__head">
+          <span class="exercise__label">Question ${idx + 1} of ${QUESTIONS.length} &middot; Memo marker #${q.marker}</span>
+        </div>
+        <div class="exercise__q" style="font-style:italic; font-weight:400;">${q.prompt}</div>
+        <div class="cite-input" id="input-${idx}" contenteditable="true" data-placeholder="Type your citation, or “None”…" oninput="onAnswerInput(${idx})"></div>
+        <div class="exercise__hint">Select text and press Ctrl/Cmd+I to italicize.</div>
+        <div class="exercise__feedback" id="fb-${idx}"></div>
+      </div>
+    `).join('');
+
+    questionsEl.querySelectorAll('.cite-input').forEach(el => {
+      el.addEventListener('keydown', e => {
+        if (e.key === 'Enter') e.preventDefault();
+      });
+    });
+
+    answeredCount = 0;
+    updateProgress();
+    document.getElementById('submit-meta').textContent = '';
+  }
+
+  function onAnswerInput(idx) {
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const inputs = document.querySelectorAll('.cite-input');
+    let answered = 0;
+    inputs.forEach(el => { if (el.innerText.trim().length > 0) answered++; });
+    document.getElementById('pane-progress').textContent = `${answered} of ${QUESTIONS.length} answered`;
+  }
+
+  // ----- Rich-text (text + italics) extraction & comparison -----
+
+  // Walks a DOM subtree and returns { text, italics: [bool, ...] } — one
+  // italic flag per character, based on whether that character sits inside
+  // an <i>/<em> element or anything with inline italic styling. Works on
+  // both the student's contenteditable box and a detached element built
+  // from a question's `display` HTML, so both sides are graded identically.
+  function extractRich(container) {
+    let text = '';
+    const italics = [];
+    function isItalicEl(el) {
+      if (!el || el.nodeType !== 1) return false;
+      if (el.tagName === 'I' || el.tagName === 'EM') return true;
+      if (el.style && el.style.fontStyle === 'italic') return true;
+      return false;
+    }
+    function insideItalic(node) {
+      let el = node.parentElement;
+      while (el && el !== container) {
+        if (isItalicEl(el)) return true;
+        el = el.parentElement;
+      }
+      return false;
+    }
+    function walk(node) {
+      if (node.nodeType === 3) { // text node
+        const italic = insideItalic(node);
+        for (const ch of node.textContent) {
+          text += ch;
+          italics.push(italic);
+        }
+      } else if (node.nodeType === 1) {
+        if (node.tagName === 'BR') {
+          text += '\n';
+          italics.push(false);
+        } else {
+          node.childNodes.forEach(walk);
+        }
+      }
+    }
+    container.childNodes.forEach(walk);
+    return { text, italics };
+  }
+
+  // Trims whitespace from both ends, keeping the italics array aligned, and
+  // normalizes curly apostrophes to straight ones (a keyboard can't type ’).
+  function normalizeRich({ text, italics }) {
+    const chars = Array.from(text).map(c => (c === '‘' || c === '’') ? "'" : c);
+    let start = 0, end = chars.length;
+    while (start < end && /\s/.test(chars[start])) start++;
+    while (end > start && /\s/.test(chars[end - 1])) end--;
+    return { text: chars.slice(start, end).join(''), italics: italics.slice(start, end) };
+  }
+
+  function richFromHtml(html) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    return normalizeRich(extractRich(div));
+  }
+
+  function richFromInput(el) {
+    return normalizeRich(extractRich(el));
+  }
+
+  function richEquals(a, b) {
+    if (a.text !== b.text) return false;
+    if (a.italics.length !== b.italics.length) return false;
+    for (let i = 0; i < a.italics.length; i++) {
+      if (a.italics[i] !== b.italics[i]) return false;
+    }
+    return true;
+  }
+
+  function checkAllAnswers() {
+    const total = QUESTIONS.length;
+    let answeredNow = 0;
+    document.querySelectorAll('.cite-input').forEach(el => { if (el.innerText.trim().length > 0) answeredNow++; });
+    const unanswered = total - answeredNow;
+    if (unanswered > 0) {
+      if (!confirm(`You have ${unanswered} unanswered question${unanswered === 1 ? '' : 's'}. Check anyway?`)) {
+        return;
+      }
+    }
+
+    let correct = 0;
+    QUESTIONS.forEach((q, idx) => {
+      const input = document.getElementById(`input-${idx}`);
+      const fb = document.getElementById(`fb-${idx}`);
+      input.classList.remove('is-correct','is-wrong');
+      fb.classList.remove('show','is-correct','is-wrong');
+
+      const submitted = richFromInput(input);
+      const accepted = q.display.map(richFromHtml);
+      const displayAnswer = q.display.map(d => `<span class="answer">${d}</span>`).join(' <span class="muted small">or</span> ');
+      const multi = q.display.length > 1 ? 's' : '';
+
+      if (submitted.text.length === 0) {
+        input.classList.add('is-wrong');
+        fb.innerHTML = `<strong>Skipped.</strong> Accepted answer${multi}: <span class="answer">${displayAnswer}</span>`;
+        fb.classList.add('show','is-wrong');
+        return;
+      }
+
+      const fullyCorrect = accepted.some(a => richEquals(submitted, a));
+      if (fullyCorrect) {
+        correct++;
+        input.classList.add('is-correct');
+        fb.innerHTML = '<strong>Correct.</strong>';
+        fb.classList.add('show','is-correct');
+        return;
+      }
+
+      input.classList.add('is-wrong');
+      const textOnlyMatch = accepted.some(a => a.text === submitted.text);
+      if (textOnlyMatch) {
+        fb.innerHTML = `<strong>Almost.</strong> The text is right, but the italics aren't. Accepted answer${multi}: <span class="answer">${displayAnswer}</span>`;
+      } else {
+        fb.innerHTML = `<strong>Not quite.</strong> Accepted answer${multi}: <span class="answer">${displayAnswer}</span>`;
+      }
+      fb.classList.add('show','is-wrong');
+    });
+    document.getElementById('submit-meta').textContent = `You scored ${correct} of ${total}.`;
+  }
+
+  function resetQuiz() {
+    render();
+  }
+
+  render();
+</script>
+
+</body>
+</html>
